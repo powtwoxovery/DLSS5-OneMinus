@@ -11,6 +11,20 @@
 #include "Modules/ModuleManager.h"
 #include "SceneViewExtension.h"
 #include "ShaderCore.h"
+#include "Misc/EngineVersionComparison.h"
+// Version-safe accessor for the post-engine-init delegate.
+// UE 5.8 deprecates FCoreDelegates::OnPostEngineInit in favour of GetOnPostEngineInit(), which does not exist before 5.8.
+namespace
+{
+    FSimpleMulticastDelegate& PostEngineInitDelegate()
+    {
+#if UE_VERSION_OLDER_THAN(5, 8, 0)
+        return FCoreDelegates::OnPostEngineInit;
+#else
+        return FCoreDelegates::GetOnPostEngineInit();
+#endif
+    }
+}
 
 DEFINE_LOG_CATEGORY_STATIC(LogDLSS5OneMinus, Log, All);
 
@@ -158,7 +172,7 @@ void FDLSS5OneMinusModule::StartupModule()
     }
     else
     {
-        GPostEngineInitHandle = FCoreDelegates::OnPostEngineInit.AddStatic(&CreateViewExtension);
+        GPostEngineInitHandle = PostEngineInitDelegate().AddStatic(&CreateViewExtension);
     }
 
     UE_LOG(LogDLSS5OneMinus, Display, TEXT("DLSS5-OneMinus loaded: state=%s; %s"),
@@ -175,7 +189,7 @@ void FDLSS5OneMinusModule::ShutdownModule()
     }
     if (GPostEngineInitHandle.IsValid())
     {
-        FCoreDelegates::OnPostEngineInit.Remove(GPostEngineInitHandle);
+        PostEngineInitDelegate().Remove(GPostEngineInitHandle);
         GPostEngineInitHandle.Reset();
     }
     GViewExtension.Reset();
