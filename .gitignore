@@ -1,0 +1,14 @@
+# Unreal build products are rebuilt from source; never publish binaries or debug symbols.
+/Binaries/
+/Intermediate/
+*.dll
+*.lib
+*.pdb
+*.exp
+*.exe
+
+# Local IDE/user state
+/.vs/
+/.vscode/
+/.idea/
+*.user

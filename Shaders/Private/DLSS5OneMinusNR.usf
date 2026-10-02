@@ -1,0 +1,223 @@
+#include "/Engine/Private/Common.ush"
+#include "/Engine/Private/ScreenPass.ush"
+
+#ifndef THREADGROUP_SIZE
+#define THREADGROUP_SIZE 8
+#endif
+
+Texture2D<float4> InputColor;
+RWTexture2D<float4> OutputColor;
+int2 InputOffset;
+int2 OutputSize;
+
+Texture2D SceneDepth;
+Texture2D SceneVelocity;
+RWTexture2D<float2> OutputMotion;
+uint VelocityIsValid;
+
+Texture2D<float4> OriginalColor;
+SamplerState OriginalSampler;
+Texture2D<float4> ModelColor;
+SamplerState ModelSampler;
+float Strength;
+float WhitePoint;
+uint CompositionMode;
+uint DebugView;
+float SliceOffset;
+int2 OutputOffset;
+
+float3 DifferenceView(float3 Original, float3 Neural)
+{
+    return saturate(abs(Neural - Original) * 4.0);
+}
+
+float3 LinearToSrgb(float3 Value)
+{
+    Value = saturate(Value);
+    return lerp(Value * 12.92, 1.055 * pow(max(Value, 1.0e-8), 1.0 / 2.4) - 0.055, step(0.0031308, Value));
+}
+
+float3 SrgbToLinear(float3 Value)
+{
+    Value = saturate(Value);
+    return lerp(Value / 12.92, pow((Value + 0.055) / 1.055, 2.4), step(0.04045, Value));
+}
+
+float3 SoftKnee(float3 Value)
+{
+    const float Luminance = dot(Value, float3(0.2126, 0.7152, 0.0722));
+    if (Luminance > 0.75)
+    {
+        const float Rolled = 0.75 + 0.25 * (1.0 - exp(-(Luminance - 0.75) / 0.25));
+        Value *= Rolled / max(Luminance, 1.0e-6);
+    }
+
+    const float Peak = max(Value.r, max(Value.g, Value.b));
+    if (Peak > 1.0)
+    {
+        Value /= Peak;
+    }
+    return Value;
+}
+
+float GetSliceCoordinate(float Slice)
+{
+    return SliceOffset <= 0.000001 ? Slice : frac(Slice - SliceOffset);
+}
+
+bool IsSliceDivider(float Slice, float HalfLine)
+{
+    if (abs(Slice - 1.0 / 3.0) <= HalfLine || abs(Slice - 2.0 / 3.0) <= HalfLine)
+    {
+        return true;
+    }
+    return SliceOffset > 0.000001 && min(Slice, 1.0 - Slice) <= HalfLine;
+}
+
+float3 ApplyDebugView(float3 Original, float3 Neural, float2 UV, float2 Size)
+{
+    float3 Difference = DifferenceView(Original, Neural);
+    if (DebugView == 1)
+    {
+        return Difference;
+    }
+    if (DebugView == 2)
+    {
+        const float Slope = 0.363970234;
+        float Slice = GetSliceCoordinate(UV.x + Slope * (Size.y / max(Size.x, 1.0)) * (UV.y - 0.5));
+        float HalfLine = 1.0 / max(Size.x, 1.0);
+        if (IsSliceDivider(Slice, HalfLine))
+        {
+            return 0.0;
+        }
+        return Slice < 1.0 / 3.0 ? Original : (Slice < 2.0 / 3.0 ? Neural : Difference);
+    }
+    return Neural;
+}
+
+#if DLSS5_ONEMINUS_ENCODE
+[numthreads(THREADGROUP_SIZE, THREADGROUP_SIZE, 1)]
+void DisplayEncodeMain(uint3 DispatchThreadId : SV_DispatchThreadID)
+{
+    if (any(DispatchThreadId.xy >= (uint2)OutputSize))
+    {
+        return;
+    }
+    float4 Source = InputColor.Load(int3((int2)DispatchThreadId.xy + InputOffset, 0));
+    OutputColor[DispatchThreadId.xy] = float4(saturate(Source.rgb), 1.0);
+}
+#endif
+
+#if DLSS5_ONEMINUS_HDR_ENCODE
+[numthreads(THREADGROUP_SIZE, THREADGROUP_SIZE, 1)]
+void HDREncodeMain(uint3 DispatchThreadId : SV_DispatchThreadID)
+{
+    if (any(DispatchThreadId.xy >= (uint2)OutputSize))
+    {
+        return;
+    }
+    float4 Source = InputColor.Load(int3((int2)DispatchThreadId.xy + InputOffset, 0));
+    float3 Normalized = max(Source.rgb, 0.0) / max(WhitePoint, 0.001);
+    OutputColor[DispatchThreadId.xy] = float4(LinearToSrgb(SoftKnee(Normalized)), 1.0);
+}
+#endif
+
+#if DLSS5_ONEMINUS_MOTION_GUIDE
+[numthreads(THREADGROUP_SIZE, THREADGROUP_SIZE, 1)]
+void MotionGuideMain(uint3 DispatchThreadId : SV_DispatchThreadID)
+{
+    if (any(DispatchThreadId.xy >= (uint2)OutputSize))
+    {
+        return;
+    }
+
+    uint2 SourcePixel = DispatchThreadId.xy + InputOffset;
+    float Depth = SceneDepth.Load(int3(SourcePixel, 0)).x;
+    float2 ScreenMotion = 0.0;
+    float4 EncodedVelocity = VelocityIsValid != 0
+        ? SceneVelocity.Load(int3(SourcePixel, 0))
+        : 0.0;
+
+    if (VelocityIsValid != 0 && EncodedVelocity.x > 0.0)
+    {
+        ScreenMotion = DecodeVelocityFromTexture(EncodedVelocity).xy;
+    }
+    else
+    {
+        float4 CurrentClip;
+        CurrentClip.xy = SvPositionToScreenPosition(float4(SourcePixel + 0.5, 0.0, 1.0)).xy;
+        CurrentClip.z = Depth;
+        CurrentClip.w = 1.0;
+        float4 PreviousClip = mul(CurrentClip, View.ClipToPrevClip);
+        if (PreviousClip.w > 0.0)
+        {
+            ScreenMotion = CurrentClip.xy - PreviousClip.xy / PreviousClip.w;
+        }
+    }
+
+    // Convert UE screen-space motion to NR pixel-space motion and place the
+    // tightly packed guide at the top left of its dedicated texture.
+    OutputMotion[DispatchThreadId.xy] = ScreenMotion * float2(-0.5, 0.5) * OutputSize;
+}
+#endif
+
+
+#if DLSS5_ONEMINUS_HDR_RESOLVE
+void HDRResolveMain(
+    in noperspective float4 UVAndScreenPosition : TEXCOORD0,
+    in float4 Position : SV_Position,
+    out float4 OutColor : SV_Target0)
+{
+    float2 ViewUV = (Position.xy - (float2)OutputOffset) / max((float2)OutputSize, 1.0);
+    float4 Original = OriginalColor.SampleLevel(OriginalSampler, UVAndScreenPosition.xy, 0);
+    float3 Model = ModelColor.SampleLevel(ModelSampler, ViewUV, 0).rgb;
+    float SafeWhite = max(WhitePoint, 0.001);
+    float3 NormalizedOriginal = SoftKnee(max(Original.rgb, 0.0) / SafeWhite);
+    float3 LinearModel = SrgbToLinear(Model);
+    float3 Additive = max(Original.rgb + (LinearModel - NormalizedOriginal) * SafeWhite, 0.0);
+    float3 Ratio = clamp(LinearModel / max(NormalizedOriginal, 0.02), 0.5, 2.0);
+    float3 RatioResult = max(Original.rgb * Ratio, 0.0);
+    float3 RatioWeight = smoothstep(0.02, 0.10, NormalizedOriginal);
+    float3 Composed = CompositionMode == 0
+        ? Additive
+        : lerp(Additive, RatioResult, RatioWeight);
+    // composition strength 0..2 (default 1); >1 extrapolates the NR edit; HDR result kept non-negative.
+    float3 Neural = max(lerp(Original.rgb, Composed, clamp(Strength, 0.0, 2.0)), 0.0);
+
+    float3 Difference = abs(Neural - Original.rgb);
+    if (DebugView == 1)
+    {
+        Neural = Difference * 4.0;
+    }
+    else if (DebugView == 2)
+    {
+        const float Slope = 0.363970234;
+        float Slice = GetSliceCoordinate(ViewUV.x + Slope * (OutputSize.y / max((float)OutputSize.x, 1.0)) * (ViewUV.y - 0.5));
+        float HalfLine = 1.0 / max((float)OutputSize.x, 1.0);
+        if (IsSliceDivider(Slice, HalfLine))
+        {
+            Neural = 0.0;
+        }
+        else
+        {
+            Neural = Slice < 1.0 / 3.0 ? Original.rgb : (Slice < 2.0 / 3.0 ? Neural : Difference * 4.0);
+        }
+    }
+    OutColor = float4(Neural, Original.a);
+}
+#endif
+
+#if DLSS5_ONEMINUS_POST_TONE_RESOLVE
+void PostToneResolveMain(
+    in noperspective float4 UVAndScreenPosition : TEXCOORD0,
+    in float4 Position : SV_Position,
+    out float4 OutColor : SV_Target0)
+{
+    float2 ViewUV = (Position.xy - (float2)OutputOffset) / max((float2)OutputSize, 1.0);
+    float4 Original = OriginalColor.SampleLevel(OriginalSampler, UVAndScreenPosition.xy, 0);
+    float3 Model = ModelColor.SampleLevel(ModelSampler, ViewUV, 0).rgb;
+    // composition strength 0..2 (default 1); >1 extrapolates the NR edit; display-space result kept in 0..1.
+    float3 Neural = saturate(lerp(Original.rgb, Model, clamp(Strength, 0.0, 2.0)));
+    OutColor = float4(ApplyDebugView(Original.rgb, Neural, ViewUV, (float2)OutputSize), Original.a);
+}
+#endif

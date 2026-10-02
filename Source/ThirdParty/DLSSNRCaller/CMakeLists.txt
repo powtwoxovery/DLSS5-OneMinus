@@ -1,0 +1,16 @@
+cmake_minimum_required(VERSION 3.20)
+project(DLSS5OneMinusNRCaller LANGUAGES CXX)
+
+get_filename_component(PLUGINS_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/../../../.." ABSOLUTE)
+set(NGX_INCLUDE "${PLUGINS_ROOT}/NVIDIA/DLSS/Source/ThirdParty/NGX/Include")
+if(NOT EXISTS "${NGX_INCLUDE}/nvsdk_ngx.h")
+    message(FATAL_ERROR "Install the authorized NVIDIA DLSS dependency under Plugins/NVIDIA first.")
+endif()
+
+add_library(DLSS5OneMinusNRCaller SHARED CallerAdapter.cpp)
+set_target_properties(DLSS5OneMinusNRCaller PROPERTIES OUTPUT_NAME "nvngx.dll_research_adapter")
+target_compile_features(DLSS5OneMinusNRCaller PRIVATE cxx_std_17)
+target_compile_definitions(DLSS5OneMinusNRCaller PRIVATE UNICODE _UNICODE WIN32_LEAN_AND_MEAN NOMINMAX)
+target_compile_options(DLSS5OneMinusNRCaller PRIVATE /W4 /EHsc)
+target_include_directories(DLSS5OneMinusNRCaller SYSTEM PRIVATE "${NGX_INCLUDE}")
+set_property(TARGET DLSS5OneMinusNRCaller PROPERTY MSVC_RUNTIME_LIBRARY MultiThreadedDLL)

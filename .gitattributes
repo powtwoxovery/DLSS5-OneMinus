@@ -1,0 +1,21 @@
+* text=auto
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+*.cpp text eol=crlf
+*.h text eol=crlf
+*.cs text eol=crlf
+*.ini text eol=crlf
+*.uplugin text eol=crlf
+*.usf text eol=crlf
+*.ush text eol=crlf
+*.html text eol=crlf
+*.txt text eol=crlf
+*.jpg binary
+*.png binary
+*.uasset binary
+*.umap binary
+*.dll binary
+*.lib binary
+*.pdb binary
+*.md text eol=crlf
