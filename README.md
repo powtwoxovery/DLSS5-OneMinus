@@ -13,7 +13,7 @@ Win64 / DirectX 12 · Unreal Engine 5.5 – 5.8
 
 <sub>UE 5.8.3, Post Tone route, composition 1.0, style Default, skin structure AUTO. Same frame, NR toggled.</sub>
 
-**Full guide:** [`Docs/DLSS5OneMinus_Help.html`](Docs/DLSS5OneMinus_Help.html). It covers every control with annotated screenshots, an interactive before/after, and how the routes work. Download it and open it in a browser. It is also packaged with the plugin, and the panel's **HELP** button opens it.
+**Full guide:** [powtwoxovery.github.io/DLSS5-OneMinus/Docs/DLSS5OneMinus_Help.html](https://powtwoxovery.github.io/DLSS5-OneMinus/Docs/DLSS5OneMinus_Help.html). It covers every control with annotated screenshots, an interactive before/after, and how the routes work. It is also packaged with the plugin as [`Docs/DLSS5OneMinus_Help.html`](Docs/DLSS5OneMinus_Help.html), and the panel's **HELP** button opens it.
 
 ## Pick your Unreal version
 
@@ -21,10 +21,10 @@ Each engine version has its own branch and release, validated on the stock launc
 
 | Unreal Engine | Branch | Release | Base: NVIDIA DLSS 4.5 plugin |
 |---|---|---|---|
-| 5.5 | [`ue5.5`](../../tree/ue5.5) | [`v0.1.0-ue5.5`](../../releases/tag/v0.1.0-ue5.5) | v8.8.0 for UE 5.5 |
-| 5.6 | [`ue5.6`](../../tree/ue5.6) | [`v0.1.0-ue5.6`](../../releases/tag/v0.1.0-ue5.6) | v8.8.0 for UE 5.6 |
-| 5.7 | [`ue5.7`](../../tree/ue5.7) | [`v0.1.0-ue5.7`](../../releases/tag/v0.1.0-ue5.7) | v8.8.0 for UE 5.7 |
-| 5.8 | [`ue5.8`](../../tree/ue5.8) | [`v0.1.0-ue5.8`](../../releases/tag/v0.1.0-ue5.8) | v8.8.0 for UE 5.8 |
+| 5.5 | [`ue5.5`](https://github.com/powtwoxovery/DLSS5-OneMinus/tree/ue5.5) | [`v0.1.0-ue5.5`](https://github.com/powtwoxovery/DLSS5-OneMinus/releases/tag/v0.1.0-ue5.5) | v8.8.0 for UE 5.5 |
+| 5.6 | [`ue5.6`](https://github.com/powtwoxovery/DLSS5-OneMinus/tree/ue5.6) | [`v0.1.0-ue5.6`](https://github.com/powtwoxovery/DLSS5-OneMinus/releases/tag/v0.1.0-ue5.6) | v8.8.0 for UE 5.6 |
+| 5.7 | [`ue5.7`](https://github.com/powtwoxovery/DLSS5-OneMinus/tree/ue5.7) | [`v0.1.0-ue5.7`](https://github.com/powtwoxovery/DLSS5-OneMinus/releases/tag/v0.1.0-ue5.7) | v8.8.0 for UE 5.7 |
+| 5.8 | [`ue5.8`](https://github.com/powtwoxovery/DLSS5-OneMinus/tree/ue5.8) | [`v0.1.0-ue5.8`](https://github.com/powtwoxovery/DLSS5-OneMinus/releases/tag/v0.1.0-ue5.8) | v8.8.0 for UE 5.8 |
 
 Each release passed the same checks:
 - every panel control;
