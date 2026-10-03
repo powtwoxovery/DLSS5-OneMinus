@@ -57,7 +57,12 @@ NR is off by default in editor and game worlds. You can turn it on from:
 
 ![Neural Rendering Lab panel](Docs/images/panel_annotated.jpg)
 
-Three routes decide where NR runs:
+Three routes decide where NR runs.
+
+NR was designed as a post-process step at the very end of the render chain: that is **Post Tone**, the default. For projects that still need a 16-bit float, non-tone-mapped image out of Unreal, we added two HDR routes, each with its own strength and trade-off:
+
+- **Pre DLSS** runs NR on the reduced-resolution frame, before DLSS Super Resolution upscales it. Render cost falls with the screen percentage, and fine detail falls by about the same amount. A good fit for lower-power GPUs.
+- **Post DLAA** runs NR on the full-resolution frame after native DLAA. It gives the full-quality detail enhancement and keeps the pre-tone-mapped, full-float data for export. A good fit for frames headed into a production post pipeline.
 
 | Route | Where NR runs | Screen % while NR is on | HDR composition settings |
 |---|---|---|---|
