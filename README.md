@@ -13,7 +13,7 @@ Win64 / DirectX 12 · Unreal Engine 5.5 – 5.8
 
 <sub>UE 5.8.3, Post Tone route, composition 1.0, style Default, skin structure AUTO. Same frame, NR toggled.</sub>
 
-**Full guide:** [powtwoxovery.github.io/DLSS5-OneMinus/Docs/DLSS5OneMinus_Help.html](https://powtwoxovery.github.io/DLSS5-OneMinus/Docs/DLSS5OneMinus_Help.html). It covers every control with annotated screenshots, an interactive before/after, and how the routes work. It is also packaged with the plugin as [`Docs/DLSS5OneMinus_Help.html`](Docs/DLSS5OneMinus_Help.html), and the panel's **HELP** button opens it.
+**Full guide:** [powtwoxovery.github.io/DLSS5-OneMinus/Docs/DLSS5OneMinus_Help.html](https://powtwoxovery.github.io/DLSS5-OneMinus/Docs/DLSS5OneMinus_Help.html). It covers every control with annotated screenshots, an interactive before/after, and how the routes work. The guide also ships inside the plugin, and the panel's **HELP** button opens it.
 
 ## Pick your Unreal version
 
