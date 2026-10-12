@@ -7,6 +7,7 @@
 #include "HAL/IConsoleManager.h"
 #include "LegacyScreenPercentageDriver.h"
 #include "PostProcess/PostProcessInputs.h"
+#include "PostProcess/PostProcessTonemap.h"
 #include "PostProcess/PostProcessMaterialInputs.h"
 #include "RenderGraphBlackboard.h"
 #include "RenderGraphBuilder.h"
@@ -410,12 +411,13 @@ FScreenPassTexture FDLSS5OneMinusViewExtension::PostTone_RenderThread(
 
     if (View.Family == nullptr
         || View.Family->RenderTarget == nullptr
-        || View.Family->RenderTarget->GetDisplayOutputFormat() != EDisplayOutputFormat::SDR_sRGB
+        || (GetTonemapperOutputDeviceParameters(*View.Family).OutputDevice != static_cast<uint32>(EDisplayOutputFormat::SDR_sRGB)
+            && GetTonemapperOutputDeviceParameters(*View.Family).OutputDevice != static_cast<uint32>(EDisplayOutputFormat::HDR_LinearWithToneCurve))
         || View.Family->RenderTarget->GetSceneHDREnabled())
     {
         FDLSS5OneMinusStatusSnapshot Status = DLSS5OneMinus::GetStatus();
-        Status.EffectiveRoute = TEXT("Unavailable: Post Tone requires SDR sRGB");
-        Status.Detail = TEXT("Post Tone was requested, but the active tonemapper output is not SDR sRGB. The original scene color is preserved.");
+        Status.EffectiveRoute = TEXT("Unavailable: Post Tone requires sRGB or linear tonemapped output");
+        Status.Detail = TEXT("Post Tone requires sRGB or the linear tonemapped MRQ output. HDR without the tone curve and other output encodings are unsupported. The original scene color is preserved.");
         DLSS5OneMinus::SetStatus(Status);
         return Inputs.ReturnUntouchedSceneColorForPostProcessing(GraphBuilder);
     }
