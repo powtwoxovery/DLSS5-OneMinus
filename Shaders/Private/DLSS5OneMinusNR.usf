@@ -9,6 +9,7 @@ Texture2D<float4> InputColor;
 RWTexture2D<float4> OutputColor;
 int2 InputOffset;
 int2 OutputSize;
+uint DisplayInputIsLinear;
 
 Texture2D SceneDepth;
 Texture2D SceneVelocity;
@@ -104,7 +105,9 @@ void DisplayEncodeMain(uint3 DispatchThreadId : SV_DispatchThreadID)
         return;
     }
     float4 Source = InputColor.Load(int3((int2)DispatchThreadId.xy + InputOffset, 0));
-    OutputColor[DispatchThreadId.xy] = float4(saturate(Source.rgb), 1.0);
+    // MRQ keeps the tonemapped image linear for accumulation and file output.
+    // NR expects the same display-referred sRGB input as the editor viewport.
+    OutputColor[DispatchThreadId.xy] = float4(DisplayInputIsLinear != 0 ? LinearToSrgb(Source.rgb) : saturate(Source.rgb), 1.0);
 }
 #endif
 
@@ -402,7 +405,11 @@ void PostToneResolveMain(
     float4 Original = OriginalColor.SampleLevel(OriginalSampler, UVAndScreenPosition.xy, 0);
     float3 Model = ModelColor.SampleLevel(ModelSampler, ViewUV, 0).rgb;
     // composition strength 0..2 (default 1); >1 extrapolates the NR edit; display-space result kept in 0..1.
-    float3 Neural = saturate(lerp(Original.rgb, Model, clamp(Strength, 0.0, 2.0)));
-    OutColor = float4(ApplyDebugView(Original.rgb, Neural, ViewUV, (float2)OutputSize), Original.a);
+    float3 DisplayOriginal = DisplayInputIsLinear != 0 ? LinearToSrgb(Original.rgb) : Original.rgb;
+    float3 Neural = saturate(lerp(DisplayOriginal, Model, clamp(Strength, 0.0, 2.0)));
+    float3 Resolved = ApplyDebugView(DisplayOriginal, Neural, ViewUV, (float2)OutputSize);
+    // Return to MRQ's linear domain; its PNG writer performs the final sRGB encoding.
+    Resolved = DisplayInputIsLinear != 0 ? SrgbToLinear(Resolved) : Resolved;
+    OutColor = float4(Strength <= 0.0 && DebugView == 0 ? Original.rgb : Resolved, Original.a);
 }
 #endif

@@ -6,6 +6,7 @@
 #include "RenderGraphBuilder.h"
 #include "RenderGraphUtils.h"
 #include "SceneView.h"
+#include "PostProcess/PostProcessTonemap.h"
 #include "ShaderParameterStruct.h"
 #include "SystemTextures.h"
 
@@ -54,6 +55,7 @@ namespace
             SHADER_PARAMETER_RDG_TEXTURE_UAV(RWTexture2D<float4>, OutputColor)
             SHADER_PARAMETER(FIntPoint, InputOffset)
             SHADER_PARAMETER(FIntPoint, OutputSize)
+            SHADER_PARAMETER(uint32, DisplayInputIsLinear)
         END_SHADER_PARAMETER_STRUCT()
     };
 
@@ -143,6 +145,7 @@ namespace
             SHADER_PARAMETER_SAMPLER(SamplerState, ModelSampler)
             SHADER_PARAMETER(float, Strength)
             SHADER_PARAMETER(uint32, DebugView)
+            SHADER_PARAMETER(uint32, DisplayInputIsLinear)
             SHADER_PARAMETER(float, SliceOffset)
             SHADER_PARAMETER(FIntPoint, OutputOffset)
             SHADER_PARAMETER(FIntPoint, OutputSize)
@@ -346,6 +349,8 @@ FRDGTextureRef DLSS5OneMinus::AddDisplayEncodePass(
     Parameters->OutputColor = GraphBuilder.CreateUAV(Output);
     Parameters->InputOffset = InputRect.Min;
     Parameters->OutputSize = OutputSize;
+    Parameters->DisplayInputIsLinear = View.Family && GetTonemapperOutputDeviceParameters(*View.Family).OutputDevice
+        == static_cast<uint32>(EDisplayOutputFormat::HDR_LinearWithToneCurve) ? 1u : 0u;
 
     TShaderMapRef<FDisplayEncodeCS> Shader(GetGlobalShaderMap(View.GetFeatureLevel()));
     FComputeShaderUtils::AddPass(
@@ -446,6 +451,8 @@ void DLSS5OneMinus::AddPostToneResolvePass(
     Parameters->ModelSampler = TStaticSamplerState<SF_Point, AM_Clamp, AM_Clamp>::GetRHI();
     Parameters->Strength = FMath::Clamp(Strength, 0.0f, 2.0f); // composition strength 0..2 (default 1); >1 extrapolates the NR edit
     Parameters->DebugView = static_cast<uint32>(FMath::Clamp(DebugView, 0, 2));
+    Parameters->DisplayInputIsLinear = View.Family && GetTonemapperOutputDeviceParameters(*View.Family).OutputDevice
+        == static_cast<uint32>(EDisplayOutputFormat::HDR_LinearWithToneCurve) ? 1u : 0u;
     Parameters->SliceOffset = NormalizeSliceOffset(SliceOffsetPercent);
     Parameters->OutputOffset = Output.ViewRect.Min;
     Parameters->OutputSize = Output.ViewRect.Size();
