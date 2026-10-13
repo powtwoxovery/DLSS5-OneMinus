@@ -207,6 +207,191 @@ void HDRResolveMain(
 }
 #endif
 
+// Multi-view consistency. NR's edit is split into a low-frequency tone field and a
+// high-frequency detail field, both as per-channel log ratios in linear light.
+// The view's own tone can then be replaced by a shared reference tone so that
+// neighbouring views of a multi-view render agree at their seams.
+#if DLSS5_ONEMINUS_CONSISTENCY_LOG_RATIO || DLSS5_ONEMINUS_CONSISTENCY_RESOLVE
+static const float ConsistencyMaxLogRatio = 1.386294; // ratio clamp 0.25..4
+
+float3 ConsistencyLinearOriginal(float3 Original, uint bDisplayDomain, float SafeWhite)
+{
+    return bDisplayDomain != 0
+        ? SrgbToLinear(Original)
+        : SoftKnee(max(Original, 0.0) / SafeWhite);
+}
+
+float3 ConsistencyLogRatio(float3 Original, float3 Model, uint bDisplayDomain, float SafeWhite)
+{
+    const float Floor = 0.002;
+    float3 LinearOriginal = ConsistencyLinearOriginal(Original, bDisplayDomain, SafeWhite);
+    float3 LinearModel = SrgbToLinear(Model);
+    return clamp(log((LinearModel + Floor) / (LinearOriginal + Floor)), -ConsistencyMaxLogRatio, ConsistencyMaxLogRatio);
+}
+#endif
+
+#if DLSS5_ONEMINUS_CONSISTENCY_LOG_RATIO
+Texture2D<float4> ConsModelColor;
+uint ConsDisplayDomain;
+float ConsWhitePoint;
+
+[numthreads(THREADGROUP_SIZE, THREADGROUP_SIZE, 1)]
+void ConsistencyLogRatioMain(uint3 DispatchThreadId : SV_DispatchThreadID)
+{
+    if (any(DispatchThreadId.xy >= (uint2)OutputSize))
+    {
+        return;
+    }
+    float3 Original = InputColor.Load(int3((int2)DispatchThreadId.xy + InputOffset, 0)).rgb;
+    float3 Model = ConsModelColor.Load(int3(DispatchThreadId.xy, 0)).rgb;
+    OutputColor[DispatchThreadId.xy] = float4(
+        ConsistencyLogRatio(Original, Model, ConsDisplayDomain, max(ConsWhitePoint, 0.001)), 1.0);
+}
+#endif
+
+#if DLSS5_ONEMINUS_CONSISTENCY_DOWNSAMPLE
+uint ConsFactor;
+int2 ConsSourceSize;
+
+// Box-filters the full-resolution log ratio into the low-resolution tone grid.
+[numthreads(THREADGROUP_SIZE, THREADGROUP_SIZE, 1)]
+void ConsistencyDownsampleMain(uint3 DispatchThreadId : SV_DispatchThreadID)
+{
+    if (any(DispatchThreadId.xy >= (uint2)OutputSize))
+    {
+        return;
+    }
+    int2 Base = (int2)DispatchThreadId.xy * (int)ConsFactor;
+    float3 Sum = 0.0;
+    float Count = 0.0;
+    for (uint Y = 0; Y < ConsFactor; ++Y)
+    {
+        for (uint X = 0; X < ConsFactor; ++X)
+        {
+            int2 Pixel = Base + int2(X, Y);
+            if (all(Pixel < ConsSourceSize))
+            {
+                Sum += InputColor.Load(int3(Pixel, 0)).rgb;
+                Count += 1.0;
+            }
+        }
+    }
+    OutputColor[DispatchThreadId.xy] = float4(Sum / max(Count, 1.0), 1.0);
+}
+#endif
+
+#if DLSS5_ONEMINUS_CONSISTENCY_BLUR
+int2 ConsDirection;
+float ConsSigma;
+int ConsRadius;
+
+// One separable Gaussian pass; edges clamp so the tone is not pulled towards black.
+[numthreads(THREADGROUP_SIZE, THREADGROUP_SIZE, 1)]
+void ConsistencyBlurMain(uint3 DispatchThreadId : SV_DispatchThreadID)
+{
+    if (any(DispatchThreadId.xy >= (uint2)OutputSize))
+    {
+        return;
+    }
+    float InvTwoSigmaSq = 1.0 / (2.0 * ConsSigma * ConsSigma);
+    float3 Sum = 0.0;
+    float WeightSum = 0.0;
+    for (int Offset = -ConsRadius; Offset <= ConsRadius; ++Offset)
+    {
+        int2 Pixel = clamp((int2)DispatchThreadId.xy + ConsDirection * Offset, int2(0, 0), OutputSize - 1);
+        float Weight = exp(-(float)(Offset * Offset) * InvTwoSigmaSq);
+        Sum += InputColor.Load(int3(Pixel, 0)).rgb * Weight;
+        WeightSum += Weight;
+    }
+    OutputColor[DispatchThreadId.xy] = float4(Sum / max(WeightSum, 1.0e-6), 1.0);
+}
+#endif
+
+#if DLSS5_ONEMINUS_CONSISTENCY_RESOLVE
+Texture2D<float4> ConsLogRatio;
+Texture2D<float4> ConsViewTone;
+SamplerState ConsLinearSampler;
+Texture2D<float4> ConsReferenceTone;
+Texture2D<float4> ConsReferenceMap;
+uint ConsMode;            // 1 = reference tone, 2 = detail only
+uint ConsHasReference;
+uint ConsDisplayDomain;
+uint ConsDebug;           // 0 off, 1 view tone, 2 detail, 3 reference tone, 4 reference validity
+float ConsWhitePoint;
+
+float3 ConsistencyVisualizeLog(float3 Value)
+{
+    return saturate(0.5 + Value * 0.5);
+}
+
+void ConsistencyResolveMain(
+    in noperspective float4 UVAndScreenPosition : TEXCOORD0,
+    in float4 Position : SV_Position,
+    out float4 OutColor : SV_Target0)
+{
+    float2 ViewUV = (Position.xy - (float2)OutputOffset) / max((float2)OutputSize, 1.0);
+    float4 Original = OriginalColor.SampleLevel(OriginalSampler, UVAndScreenPosition.xy, 0);
+    float3 LogRatio = ConsLogRatio.SampleLevel(ModelSampler, ViewUV, 0).rgb;
+    float3 ViewTone = ConsViewTone.SampleLevel(ConsLinearSampler, ViewUV, 0).rgb;
+    float3 Detail = LogRatio - ViewTone;
+
+    float3 Tone = ViewTone;
+    float Validity = 0.0;
+    float3 ReferenceTone = 0.0;
+    if (ConsHasReference != 0)
+    {
+        float4 Map = ConsReferenceMap.SampleLevel(ConsLinearSampler, ViewUV, 0);
+        Validity = saturate(Map.a);
+        ReferenceTone = ConsReferenceTone.SampleLevel(ConsLinearSampler, Map.rg, 0).rgb;
+    }
+    if (ConsMode == 1)
+    {
+        // Outside the reference's valid domain the view keeps its own tone.
+        Tone = lerp(ViewTone, ReferenceTone, Validity);
+    }
+    else if (ConsMode == 2)
+    {
+        Tone = 0.0;
+    }
+
+    float3 Gain = exp(clamp(Tone + Detail, -ConsistencyMaxLogRatio, ConsistencyMaxLogRatio));
+    float SafeWhite = max(ConsWhitePoint, 0.001);
+    float3 Neural;
+    if (ConsDisplayDomain != 0)
+    {
+        float3 Edited = LinearToSrgb(SrgbToLinear(Original.rgb) * Gain);
+        Neural = saturate(lerp(Original.rgb, Edited, clamp(Strength, 0.0, 2.0)));
+    }
+    else
+    {
+        float3 Edited = max(Original.rgb * Gain, 0.0);
+        Neural = max(lerp(Original.rgb, Edited, clamp(Strength, 0.0, 2.0)), 0.0);
+    }
+
+    if (ConsDebug == 1)
+    {
+        Neural = ConsistencyVisualizeLog(ViewTone);
+    }
+    else if (ConsDebug == 2)
+    {
+        Neural = ConsistencyVisualizeLog(Detail * 4.0);
+    }
+    else if (ConsDebug == 3)
+    {
+        Neural = ConsistencyVisualizeLog(ReferenceTone);
+    }
+    else if (ConsDebug == 4)
+    {
+        Neural = float3(1.0 - Validity, Validity, 0.0);
+    }
+    else
+    {
+        Neural = ApplyDebugView(Original.rgb, Neural, ViewUV, (float2)OutputSize);
+    }
+    OutColor = float4(Neural, Original.a);
+}
+#endif
+
 #if DLSS5_ONEMINUS_POST_TONE_RESOLVE
 void PostToneResolveMain(
     in noperspective float4 UVAndScreenPosition : TEXCOORD0,
