@@ -19,6 +19,7 @@ public class DLSS5OneMinus : ModuleRules
         PrivateDependencyModuleNames.AddRange(new string[]
         {
             "Projects",
+            "ImageCore",
             "RenderCore",
             "RHI",
             "Renderer",

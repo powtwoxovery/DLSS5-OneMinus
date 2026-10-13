@@ -27,4 +27,14 @@ namespace DLSS5OneMinus
         FRDGBuilder& GraphBuilder,
         const FSceneView& View,
         const FDLSS5OneMinusModelPassInputs& Inputs);
+
+    // Runs NR once on a standalone image (already encoded for the model, sRGB 0..1), with no
+    // history, zero motion and flat depth. Game thread; blocks until the result is read back.
+    bool EvaluateStandaloneModel(
+        const TArray<FFloat16Color>& EncodedInput,
+        FIntPoint Size,
+        const FDLSS5OneMinusRenderSettings& Settings,
+        int32 Route,
+        TArray<FFloat16Color>& OutModel,
+        float ConstantDepth = 0.0f);
 }
