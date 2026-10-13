@@ -49,4 +49,18 @@ namespace DLSS5OneMinus
         int32 DebugView,
         float SliceOffsetPercent,
         const FScreenPassRenderTarget& Output);
+
+    // Multi-view consistency resolve (tone/detail split). Returns false when consistency is off,
+    // in which case the caller uses the regular resolve pass.
+    bool AddConsistencyResolvePass(
+        FRDGBuilder& GraphBuilder,
+        const FSceneView& View,
+        const FScreenPassTexture& OriginalColor,
+        FRDGTextureRef ModelColor,
+        bool bDisplayDomain,
+        float Strength,
+        float WhitePoint,
+        int32 DebugView,
+        float SliceOffsetPercent,
+        const FScreenPassRenderTarget& Output);
 }
