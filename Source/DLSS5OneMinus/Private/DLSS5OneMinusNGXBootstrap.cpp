@@ -918,3 +918,126 @@ FRDGTextureRef DLSS5OneMinus::AddModelPass(
 
     return Output;
 }
+
+bool DLSS5OneMinus::EvaluateStandaloneModel(
+    const TArray<FFloat16Color>& EncodedInput,
+    const FIntPoint Size,
+    const FDLSS5OneMinusRenderSettings& Settings,
+    const int32 Route,
+    TArray<FFloat16Color>& OutModel,
+    const float ConstantDepth)
+{
+    check(IsInGameThread());
+    OutModel.Reset();
+#if DLSS5ONEMINUS_WITH_D3D12 && PLATFORM_WINDOWS
+    if (!IsNGXSnippetBootstrapReady() || Size.X <= 0 || Size.Y <= 0 || EncodedInput.Num() != Size.X * Size.Y)
+    {
+        return false;
+    }
+
+    // A distinct view id so the model never continues a live view's history; reset is forced as well.
+    constexpr uint64 StandaloneViewId = 0x53544E44414C4E45ull;
+
+    struct FStandaloneState
+    {
+        FTextureRHIRef Color;
+        FTextureRHIRef Depth;
+        FTextureRHIRef Motion;
+        FTextureRHIRef Output;
+        TArray<FFloat16Color> Readback;
+        bool bEvaluated = false;
+    };
+    TSharedRef<FStandaloneState, ESPMode::ThreadSafe> State = MakeShared<FStandaloneState, ESPMode::ThreadSafe>();
+
+    ENQUEUE_RENDER_COMMAND(DLSS5OneMinusStandaloneCreate)(
+        [State, EncodedInput, Size, ConstantDepth](FRHICommandListImmediate& RHICmdList)
+        {
+            const FRHITextureCreateDesc ColorDesc = FRHITextureCreateDesc::Create2D(TEXT("DLSS5OneMinus.StandaloneColor"), Size.X, Size.Y, PF_FloatRGBA)
+                .SetFlags(ETextureCreateFlags::ShaderResource | ETextureCreateFlags::UAV)
+                .SetInitialState(ERHIAccess::SRVMask);
+            const FRHITextureCreateDesc OutputDesc = FRHITextureCreateDesc::Create2D(TEXT("DLSS5OneMinus.StandaloneOutput"), Size.X, Size.Y, PF_FloatRGBA)
+                .SetFlags(ETextureCreateFlags::ShaderResource | ETextureCreateFlags::UAV)
+                .SetInitialState(ERHIAccess::UAVCompute);
+            const FRHITextureCreateDesc DepthDesc = FRHITextureCreateDesc::Create2D(TEXT("DLSS5OneMinus.StandaloneDepth"), Size.X, Size.Y, PF_R32_FLOAT)
+                .SetFlags(ETextureCreateFlags::ShaderResource | ETextureCreateFlags::UAV)
+                .SetInitialState(ERHIAccess::SRVMask);
+            const FRHITextureCreateDesc MotionDesc = FRHITextureCreateDesc::Create2D(TEXT("DLSS5OneMinus.StandaloneMotion"), Size.X, Size.Y, PF_G16R16F)
+                .SetFlags(ETextureCreateFlags::ShaderResource | ETextureCreateFlags::UAV)
+                .SetInitialState(ERHIAccess::SRVMask);
+            State->Color = RHICreateTexture(ColorDesc);
+            State->Output = RHICreateTexture(OutputDesc);
+            State->Depth = RHICreateTexture(DepthDesc);
+            State->Motion = RHICreateTexture(MotionDesc);
+
+            const FUpdateTextureRegion2D Region(0, 0, 0, 0, Size.X, Size.Y);
+            RHICmdList.UpdateTexture2D(State->Color, 0, Region, Size.X * sizeof(FFloat16Color), reinterpret_cast<const uint8*>(EncodedInput.GetData()));
+            // Constant inverted depth (0 = far plane); motion is zero: a still, flat-depth image.
+            TArray<float> Depth;
+            Depth.Init(ConstantDepth, Size.X * Size.Y);
+            RHICmdList.UpdateTexture2D(State->Depth, 0, Region, Size.X * sizeof(float), reinterpret_cast<const uint8*>(Depth.GetData()));
+            TArray<FFloat16> Motion;
+            Motion.SetNumZeroed(Size.X * Size.Y * 2);
+            RHICmdList.UpdateTexture2D(State->Motion, 0, Region, Size.X * sizeof(FFloat16) * 2, reinterpret_cast<const uint8*>(Motion.GetData()));
+        });
+
+    // The first call creates the feature; evaluation succeeds once its create fence has completed.
+    for (int32 Attempt = 0; Attempt < 20 && !State->bEvaluated; ++Attempt)
+    {
+        ENQUEUE_RENDER_COMMAND(DLSS5OneMinusStandaloneEvaluate)(
+            [State, Size, Settings, Route](FRHICommandListImmediate& RHICmdList)
+            {
+                FModelExecutionArguments Arguments;
+                Arguments.Color = State->Color;
+                Arguments.Depth = State->Depth;
+                Arguments.MotionVectors = State->Motion;
+                Arguments.Output = State->Output;
+                Arguments.ColorRect = FIntRect(FIntPoint::ZeroValue, Size);
+                Arguments.DepthRect = Arguments.ColorRect;
+                Arguments.MotionVectorRect = Arguments.ColorRect;
+                Arguments.ViewId = StandaloneViewId;
+                Arguments.Route = Route;
+                Arguments.bReset = true;
+                Arguments.Settings = Settings;
+                // No render graph owns these textures, so put them in the states the model expects.
+                RHICmdList.Transition({
+                    FRHITransitionInfo(State->Color, ERHIAccess::Unknown, ERHIAccess::SRVCompute),
+                    FRHITransitionInfo(State->Depth, ERHIAccess::Unknown, ERHIAccess::SRVCompute),
+                    FRHITransitionInfo(State->Motion, ERHIAccess::Unknown, ERHIAccess::SRVCompute),
+                    FRHITransitionInfo(State->Output, ERHIAccess::Unknown, ERHIAccess::UAVCompute)});
+                RHICmdList.EnqueueLambda(
+                    [State, Arguments](FRHICommandListImmediate& CommandList)
+                    {
+                        State->bEvaluated = ExecuteModel(CommandList, Arguments);
+                    });
+                RHICmdList.ImmediateFlush(EImmediateFlushType::FlushRHIThread);
+            });
+        FlushRenderingCommands();
+        if (!State->bEvaluated)
+        {
+            FPlatformProcess::Sleep(0.05f);
+        }
+    }
+
+    if (State->bEvaluated)
+    {
+        ENQUEUE_RENDER_COMMAND(DLSS5OneMinusStandaloneReadback)(
+            [State, Size](FRHICommandListImmediate& RHICmdList)
+            {
+                RHICmdList.Transition(FRHITransitionInfo(State->Output, ERHIAccess::UAVCompute, ERHIAccess::CopySrc));
+                RHICmdList.ReadSurfaceFloatData(State->Output, FIntRect(FIntPoint::ZeroValue, Size), State->Readback, CubeFace_PosX, 0, 0);
+            });
+        FlushRenderingCommands();
+        OutModel = MoveTemp(State->Readback);
+    }
+
+    {
+        // The next live view starts with fresh history.
+        FScopeLock BootstrapLock(&GBootstrapMutex);
+        GBootstrapState.bResetPending = true;
+    }
+    ENQUEUE_RENDER_COMMAND(DLSS5OneMinusStandaloneRelease)([State](FRHICommandListImmediate&) {});
+    return OutModel.Num() == Size.X * Size.Y;
+#else
+    return false;
+#endif
+}

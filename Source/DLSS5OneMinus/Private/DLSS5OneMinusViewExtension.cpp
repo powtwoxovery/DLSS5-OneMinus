@@ -262,17 +262,22 @@ void FDLSS5OneMinusViewExtension::PrePostProcessPass_RenderThread(
     const FIntRect CompactRect(FIntPoint::ZeroValue, ViewRect.Size());
     const FScreenPassTexture OriginalColor(SceneColorTexture, ViewRect);
     const FScreenPassRenderTarget ResolveTarget(ResolvedColor, CompactRect, ERenderTargetLoadAction::ENoAction);
-    DLSS5OneMinus::AddHDRResolvePass(
-        GraphBuilder,
-        InView,
-        OriginalColor,
-        ModelOutput,
-        Settings.CompositionStrength,
-        WhitePoint,
-        Settings.HDRComposition,
-        Settings.DebugView,
-        Settings.SliceOffsetPercent,
-        ResolveTarget);
+    if (!DLSS5OneMinus::AddConsistencyResolvePass(
+        GraphBuilder, InView, OriginalColor, ModelOutput, false,
+        Settings.CompositionStrength, WhitePoint, Settings.DebugView, Settings.SliceOffsetPercent, ResolveTarget))
+    {
+        DLSS5OneMinus::AddHDRResolvePass(
+            GraphBuilder,
+            InView,
+            OriginalColor,
+            ModelOutput,
+            Settings.CompositionStrength,
+            WhitePoint,
+            Settings.HDRComposition,
+            Settings.DebugView,
+            Settings.SliceOffsetPercent,
+            ResolveTarget);
+    }
 
     FRHICopyTextureInfo CopyInfo;
     CopyInfo.SourcePosition = FIntVector::ZeroValue;
@@ -378,17 +383,22 @@ FScreenPassTexture FDLSS5OneMinusViewExtension::PostDLAA_RenderThread(
             TEXT("DLSS5OneMinus.PostDLAAOutput"));
     }
 
-    DLSS5OneMinus::AddHDRResolvePass(
-        GraphBuilder,
-        View,
-        SceneColor,
-        ModelOutput,
-        Settings.CompositionStrength,
-        WhitePoint,
-        Settings.HDRComposition,
-        Settings.DebugView,
-        Settings.SliceOffsetPercent,
-        Output);
+    if (!DLSS5OneMinus::AddConsistencyResolvePass(
+        GraphBuilder, View, SceneColor, ModelOutput, false,
+        Settings.CompositionStrength, WhitePoint, Settings.DebugView, Settings.SliceOffsetPercent, Output))
+    {
+        DLSS5OneMinus::AddHDRResolvePass(
+            GraphBuilder,
+            View,
+            SceneColor,
+            ModelOutput,
+            Settings.CompositionStrength,
+            WhitePoint,
+            Settings.HDRComposition,
+            Settings.DebugView,
+            Settings.SliceOffsetPercent,
+            Output);
+    }
 
     return MoveTemp(Output);
 }
@@ -452,15 +462,20 @@ FScreenPassTexture FDLSS5OneMinusViewExtension::PostTone_RenderThread(
             TEXT("DLSS5OneMinus.PostToneOutput"));
     }
 
-    DLSS5OneMinus::AddPostToneResolvePass(
-        GraphBuilder,
-        View,
-        SceneColor,
-        ModelOutput,
-        Guides->Settings.CompositionStrength,
-        Guides->Settings.DebugView,
-        Guides->Settings.SliceOffsetPercent,
-        Output);
+    if (!DLSS5OneMinus::AddConsistencyResolvePass(
+        GraphBuilder, View, SceneColor, ModelOutput, true,
+        Guides->Settings.CompositionStrength, 1.0f, Guides->Settings.DebugView, Guides->Settings.SliceOffsetPercent, Output))
+    {
+        DLSS5OneMinus::AddPostToneResolvePass(
+            GraphBuilder,
+            View,
+            SceneColor,
+            ModelOutput,
+            Guides->Settings.CompositionStrength,
+            Guides->Settings.DebugView,
+            Guides->Settings.SliceOffsetPercent,
+            Output);
+    }
 
     return MoveTemp(Output);
 }
