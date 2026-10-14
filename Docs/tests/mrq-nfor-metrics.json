@@ -1,0 +1,1975 @@
+{
+  "frames": [
+    55,
+    56,
+    57,
+    58,
+    59,
+    60,
+    61,
+    62,
+    63,
+    64,
+    65
+  ],
+  "rendered_frames": [
+    50,
+    65
+  ],
+  "resolution": [
+    2560,
+    1440
+  ],
+  "spatial_samples": 256,
+  "method": "8-bit luma; translation registration on sigma2 blurred crops; temporal RMS after Gaussian sigma8 suppresses pixel grain. Small local samples, not a universal perceptual flicker score. Separate runs may differ in noise and moving foliage.",
+  "1_bliski_slupek": {
+    "registration_rect": [
+      275,
+      675,
+      365,
+      810
+    ],
+    "measurement_rect": [
+      321,
+      725,
+      336,
+      780
+    ],
+    "legacy": {
+      "pairs": [
+        {
+          "frame": 56,
+          "shift_yx": [
+            0.039372837258245044,
+            0.6569463741869607
+          ],
+          "mean_delta": 1.6659812927246094,
+          "absolute_mean_delta": 1.6659812927246094,
+          "registered_mae_8bit": 7.627547740936279,
+          "registered_rms_8bit": 9.819356918334961,
+          "registered_sigma1_rms_8bit": 3.1235527992248535,
+          "registered_sigma4_rms_8bit": 1.8965872526168823,
+          "registered_sigma8_rms_8bit": 2.085314989089966
+        },
+        {
+          "frame": 57,
+          "shift_yx": [
+            0.01694242744506086,
+            0.4968124267804116
+          ],
+          "mean_delta": -1.977811574935913,
+          "absolute_mean_delta": 1.977811574935913,
+          "registered_mae_8bit": 7.927774429321289,
+          "registered_rms_8bit": 10.106401443481445,
+          "registered_sigma1_rms_8bit": 3.413499593734741,
+          "registered_sigma4_rms_8bit": 2.1450107097625732,
+          "registered_sigma8_rms_8bit": 1.9019992351531982
+        },
+        {
+          "frame": 58,
+          "shift_yx": [
+            0.013155705988663453,
+            0.8535367212788035
+          ],
+          "mean_delta": -3.1677839756011963,
+          "absolute_mean_delta": 3.1677839756011963,
+          "registered_mae_8bit": 8.90908432006836,
+          "registered_rms_8bit": 11.455503463745117,
+          "registered_sigma1_rms_8bit": 4.361954212188721,
+          "registered_sigma4_rms_8bit": 2.843517541885376,
+          "registered_sigma8_rms_8bit": 2.186882495880127
+        },
+        {
+          "frame": 59,
+          "shift_yx": [
+            -0.059359268747945934,
+            0.7725629873124851
+          ],
+          "mean_delta": -1.6033226251602173,
+          "absolute_mean_delta": 1.6033226251602173,
+          "registered_mae_8bit": 7.874512195587158,
+          "registered_rms_8bit": 10.32648754119873,
+          "registered_sigma1_rms_8bit": 2.9117650985717773,
+          "registered_sigma4_rms_8bit": 1.8473484516143799,
+          "registered_sigma8_rms_8bit": 1.737143874168396
+        },
+        {
+          "frame": 60,
+          "shift_yx": [
+            -0.023714582663793386,
+            0.5569559511220252
+          ],
+          "mean_delta": 2.4179773330688477,
+          "absolute_mean_delta": 2.4179773330688477,
+          "registered_mae_8bit": 6.953598499298096,
+          "registered_rms_8bit": 9.187857627868652,
+          "registered_sigma1_rms_8bit": 3.5359537601470947,
+          "registered_sigma4_rms_8bit": 2.7562310695648193,
+          "registered_sigma8_rms_8bit": 2.600663185119629
+        },
+        {
+          "frame": 61,
+          "shift_yx": [
+            0.045579062407064545,
+            0.4849633871185938
+          ],
+          "mean_delta": -1.4082152843475342,
+          "absolute_mean_delta": 1.4082152843475342,
+          "registered_mae_8bit": 7.622432708740234,
+          "registered_rms_8bit": 10.000883102416992,
+          "registered_sigma1_rms_8bit": 2.959804058074951,
+          "registered_sigma4_rms_8bit": 1.3060427904129028,
+          "registered_sigma8_rms_8bit": 1.0607624053955078
+        },
+        {
+          "frame": 62,
+          "shift_yx": [
+            -0.022911419379943593,
+            0.11430602667641299
+          ],
+          "mean_delta": 5.537147045135498,
+          "absolute_mean_delta": 5.537147045135498,
+          "registered_mae_8bit": 10.553771018981934,
+          "registered_rms_8bit": 13.34968376159668,
+          "registered_sigma1_rms_8bit": 6.696488857269287,
+          "registered_sigma4_rms_8bit": 5.524918556213379,
+          "registered_sigma8_rms_8bit": 4.837880611419678
+        },
+        {
+          "frame": 63,
+          "shift_yx": [
+            0.012447028901320581,
+            0.6641085382523557
+          ],
+          "mean_delta": -2.51971173286438,
+          "absolute_mean_delta": 2.51971173286438,
+          "registered_mae_8bit": 9.05461311340332,
+          "registered_rms_8bit": 11.659244537353516,
+          "registered_sigma1_rms_8bit": 4.727546691894531,
+          "registered_sigma4_rms_8bit": 2.886105537414551,
+          "registered_sigma8_rms_8bit": 2.634611129760742
+        },
+        {
+          "frame": 64,
+          "shift_yx": [
+            0.018904936476875956,
+            0.6706691330703507
+          ],
+          "mean_delta": 0.9411415457725525,
+          "absolute_mean_delta": 0.9411415457725525,
+          "registered_mae_8bit": 7.614665985107422,
+          "registered_rms_8bit": 9.877933502197266,
+          "registered_sigma1_rms_8bit": 3.29114031791687,
+          "registered_sigma4_rms_8bit": 1.1801339387893677,
+          "registered_sigma8_rms_8bit": 0.7303730845451355
+        },
+        {
+          "frame": 65,
+          "shift_yx": [
+            -0.03786618644484964,
+            0.9205305856357522
+          ],
+          "mean_delta": -1.3927499055862427,
+          "absolute_mean_delta": 1.3927499055862427,
+          "registered_mae_8bit": 9.379289627075195,
+          "registered_rms_8bit": 12.559514999389648,
+          "registered_sigma1_rms_8bit": 4.749361515045166,
+          "registered_sigma4_rms_8bit": 3.571176052093506,
+          "registered_sigma8_rms_8bit": 3.652622938156128
+        }
+      ],
+      "mean": {
+        "mean_delta": -0.1507347881793976,
+        "absolute_mean_delta": 2.2631842315196993,
+        "registered_mae_8bit": 8.35172896385193,
+        "registered_rms_8bit": 10.8342866897583,
+        "registered_sigma1_rms_8bit": 3.9771066904067993,
+        "registered_sigma4_rms_8bit": 2.595707190036774,
+        "registered_sigma8_rms_8bit": 2.342825394868851
+      }
+    },
+    "fixed_final": {
+      "pairs": [
+        {
+          "frame": 56,
+          "shift_yx": [
+            -0.009806276166107974,
+            0.5813236353748236
+          ],
+          "mean_delta": -1.170688271522522,
+          "absolute_mean_delta": 1.170688271522522,
+          "registered_mae_8bit": 7.5721116065979,
+          "registered_rms_8bit": 9.877875328063965,
+          "registered_sigma1_rms_8bit": 2.938220262527466,
+          "registered_sigma4_rms_8bit": 1.2680675983428955,
+          "registered_sigma8_rms_8bit": 0.8320503234863281
+        },
+        {
+          "frame": 57,
+          "shift_yx": [
+            -0.008716082997598294,
+            0.5497905697574627
+          ],
+          "mean_delta": -0.4532713294029236,
+          "absolute_mean_delta": 0.4532713294029236,
+          "registered_mae_8bit": 7.77990198135376,
+          "registered_rms_8bit": 9.998632431030273,
+          "registered_sigma1_rms_8bit": 2.6449060440063477,
+          "registered_sigma4_rms_8bit": 0.6689238548278809,
+          "registered_sigma8_rms_8bit": 0.4327167272567749
+        },
+        {
+          "frame": 58,
+          "shift_yx": [
+            -0.016813769265434254,
+            0.6299932240894246
+          ],
+          "mean_delta": -1.082160234451294,
+          "absolute_mean_delta": 1.082160234451294,
+          "registered_mae_8bit": 8.369379043579102,
+          "registered_rms_8bit": 10.745108604431152,
+          "registered_sigma1_rms_8bit": 3.188164234161377,
+          "registered_sigma4_rms_8bit": 1.2673007249832153,
+          "registered_sigma8_rms_8bit": 0.6571494340896606
+        },
+        {
+          "frame": 59,
+          "shift_yx": [
+            0.005628828182449286,
+            0.5637769742186346
+          ],
+          "mean_delta": -0.24054716527462006,
+          "absolute_mean_delta": 0.24054716527462006,
+          "registered_mae_8bit": 7.591813564300537,
+          "registered_rms_8bit": 9.95920181274414,
+          "registered_sigma1_rms_8bit": 2.430669069290161,
+          "registered_sigma4_rms_8bit": 0.5462602972984314,
+          "registered_sigma8_rms_8bit": 0.32421553134918213
+        },
+        {
+          "frame": 60,
+          "shift_yx": [
+            0.012262571882473846,
+            0.5523928833964468
+          ],
+          "mean_delta": -0.0729195773601532,
+          "absolute_mean_delta": 0.0729195773601532,
+          "registered_mae_8bit": 6.575840950012207,
+          "registered_rms_8bit": 8.749217987060547,
+          "registered_sigma1_rms_8bit": 2.451629161834717,
+          "registered_sigma4_rms_8bit": 0.7190678119659424,
+          "registered_sigma8_rms_8bit": 0.33472004532814026
+        },
+        {
+          "frame": 61,
+          "shift_yx": [
+            0.010692089456639272,
+            0.5445155849723936
+          ],
+          "mean_delta": 0.12889444828033447,
+          "absolute_mean_delta": 0.12889444828033447,
+          "registered_mae_8bit": 7.433412551879883,
+          "registered_rms_8bit": 9.739983558654785,
+          "registered_sigma1_rms_8bit": 2.6700656414031982,
+          "registered_sigma4_rms_8bit": 0.6167551279067993,
+          "registered_sigma8_rms_8bit": 0.25016289949417114
+        },
+        {
+          "frame": 62,
+          "shift_yx": [
+            -0.008579662526120333,
+            0.5713990405459402
+          ],
+          "mean_delta": 0.22159557044506073,
+          "absolute_mean_delta": 0.22159557044506073,
+          "registered_mae_8bit": 8.030837059020996,
+          "registered_rms_8bit": 10.564691543579102,
+          "registered_sigma1_rms_8bit": 3.2431230545043945,
+          "registered_sigma4_rms_8bit": 1.0500785112380981,
+          "registered_sigma8_rms_8bit": 0.5461701154708862
+        },
+        {
+          "frame": 63,
+          "shift_yx": [
+            0.014580987247167384,
+            0.5903759971987078
+          ],
+          "mean_delta": -0.23449259996414185,
+          "absolute_mean_delta": 0.23449259996414185,
+          "registered_mae_8bit": 8.06811809539795,
+          "registered_rms_8bit": 10.39194393157959,
+          "registered_sigma1_rms_8bit": 3.079807758331299,
+          "registered_sigma4_rms_8bit": 0.8139797449111938,
+          "registered_sigma8_rms_8bit": 0.2805587649345398
+        },
+        {
+          "frame": 64,
+          "shift_yx": [
+            0.07822475954069745,
+            0.6067244081237784
+          ],
+          "mean_delta": 0.9803856611251831,
+          "absolute_mean_delta": 0.9803856611251831,
+          "registered_mae_8bit": 7.4042744636535645,
+          "registered_rms_8bit": 9.483321189880371,
+          "registered_sigma1_rms_8bit": 2.9981651306152344,
+          "registered_sigma4_rms_8bit": 1.0329108238220215,
+          "registered_sigma8_rms_8bit": 0.6360672116279602
+        },
+        {
+          "frame": 65,
+          "shift_yx": [
+            -0.030578150105229206,
+            0.5721189979511561
+          ],
+          "mean_delta": 0.09294884651899338,
+          "absolute_mean_delta": 0.09294884651899338,
+          "registered_mae_8bit": 7.70318078994751,
+          "registered_rms_8bit": 10.260573387145996,
+          "registered_sigma1_rms_8bit": 2.5753164291381836,
+          "registered_sigma4_rms_8bit": 0.5333386063575745,
+          "registered_sigma8_rms_8bit": 0.29414376616477966
+        }
+      ],
+      "mean": {
+        "mean_delta": -0.1830254651606083,
+        "absolute_mean_delta": 0.46779037043452265,
+        "registered_mae_8bit": 7.652887010574341,
+        "registered_rms_8bit": 9.977054977416993,
+        "registered_sigma1_rms_8bit": 2.822006678581238,
+        "registered_sigma4_rms_8bit": 0.8516683101654052,
+        "registered_sigma8_rms_8bit": 0.45879548192024233
+      }
+    },
+    "reduction_percent": {
+      "absolute_mean_delta": 79.33043346981931,
+      "registered_sigma4_rms_8bit": 67.18935350511013,
+      "registered_sigma8_rms_8bit": 80.41700064695067
+    }
+  },
+  "2_lewa_strona_bramy": {
+    "registration_rect": [
+      630,
+      665,
+      710,
+      780
+    ],
+    "measurement_rect": [
+      670,
+      690,
+      685,
+      750
+    ],
+    "legacy": {
+      "pairs": [
+        {
+          "frame": 56,
+          "shift_yx": [
+            0.17500325193983873,
+            0.042257336020746
+          ],
+          "mean_delta": 2.846121311187744,
+          "absolute_mean_delta": 2.846121311187744,
+          "registered_mae_8bit": 2.906175136566162,
+          "registered_rms_8bit": 3.2324748039245605,
+          "registered_sigma1_rms_8bit": 2.9251868724823,
+          "registered_sigma4_rms_8bit": 2.900812864303589,
+          "registered_sigma8_rms_8bit": 2.7147793769836426
+        },
+        {
+          "frame": 57,
+          "shift_yx": [
+            -0.08429528360020044,
+            0.0437611387054131
+          ],
+          "mean_delta": 8.015350341796875,
+          "absolute_mean_delta": 8.015350341796875,
+          "registered_mae_8bit": 8.015350341796875,
+          "registered_rms_8bit": 8.24059772491455,
+          "registered_sigma1_rms_8bit": 8.05677318572998,
+          "registered_sigma4_rms_8bit": 7.957879066467285,
+          "registered_sigma8_rms_8bit": 7.530390739440918
+        },
+        {
+          "frame": 58,
+          "shift_yx": [
+            0.01494523186676115,
+            0.11100662742483186
+          ],
+          "mean_delta": -2.1597278118133545,
+          "absolute_mean_delta": 2.1597278118133545,
+          "registered_mae_8bit": 2.3043816089630127,
+          "registered_rms_8bit": 2.732125997543335,
+          "registered_sigma1_rms_8bit": 2.3008556365966797,
+          "registered_sigma4_rms_8bit": 2.3097589015960693,
+          "registered_sigma8_rms_8bit": 2.341364860534668
+        },
+        {
+          "frame": 59,
+          "shift_yx": [
+            0.051772850283660854,
+            0.17202290191179176
+          ],
+          "mean_delta": -6.545886516571045,
+          "absolute_mean_delta": 6.545886516571045,
+          "registered_mae_8bit": 6.584673881530762,
+          "registered_rms_8bit": 6.964007377624512,
+          "registered_sigma1_rms_8bit": 6.659257888793945,
+          "registered_sigma4_rms_8bit": 6.448853015899658,
+          "registered_sigma8_rms_8bit": 5.968758583068848
+        },
+        {
+          "frame": 60,
+          "shift_yx": [
+            -0.21962882091115016,
+            0.027190312244226217
+          ],
+          "mean_delta": 3.6347029209136963,
+          "absolute_mean_delta": 3.6347029209136963,
+          "registered_mae_8bit": 3.6832032203674316,
+          "registered_rms_8bit": 4.032773494720459,
+          "registered_sigma1_rms_8bit": 3.7219905853271484,
+          "registered_sigma4_rms_8bit": 3.6170177459716797,
+          "registered_sigma8_rms_8bit": 3.330045223236084
+        },
+        {
+          "frame": 61,
+          "shift_yx": [
+            0.06075130294307407,
+            0.08583330017114767
+          ],
+          "mean_delta": -1.461708664894104,
+          "absolute_mean_delta": 1.461708664894104,
+          "registered_mae_8bit": 2.2212419509887695,
+          "registered_rms_8bit": 2.9423322677612305,
+          "registered_sigma1_rms_8bit": 1.7766287326812744,
+          "registered_sigma4_rms_8bit": 1.5461190938949585,
+          "registered_sigma8_rms_8bit": 1.394570231437683
+        },
+        {
+          "frame": 62,
+          "shift_yx": [
+            0.000560561736656329,
+            0.1455235053513416
+          ],
+          "mean_delta": -2.720104694366455,
+          "absolute_mean_delta": 2.720104694366455,
+          "registered_mae_8bit": 2.7845702171325684,
+          "registered_rms_8bit": 3.177299737930298,
+          "registered_sigma1_rms_8bit": 2.7909207344055176,
+          "registered_sigma4_rms_8bit": 2.698728322982788,
+          "registered_sigma8_rms_8bit": 2.5205767154693604
+        },
+        {
+          "frame": 63,
+          "shift_yx": [
+            -0.28632490984563486,
+            -0.017220341591143162
+          ],
+          "mean_delta": 2.0658273696899414,
+          "absolute_mean_delta": 2.0658273696899414,
+          "registered_mae_8bit": 2.3998708724975586,
+          "registered_rms_8bit": 2.936594247817993,
+          "registered_sigma1_rms_8bit": 2.218663454055786,
+          "registered_sigma4_rms_8bit": 2.058807849884033,
+          "registered_sigma8_rms_8bit": 2.056863307952881
+        },
+        {
+          "frame": 64,
+          "shift_yx": [
+            -0.06490966897839054,
+            0.09074645528787341
+          ],
+          "mean_delta": 2.3529155254364014,
+          "absolute_mean_delta": 2.3529155254364014,
+          "registered_mae_8bit": 2.486210346221924,
+          "registered_rms_8bit": 2.886927604675293,
+          "registered_sigma1_rms_8bit": 2.4554603099823,
+          "registered_sigma4_rms_8bit": 2.233908176422119,
+          "registered_sigma8_rms_8bit": 1.8173792362213135
+        },
+        {
+          "frame": 65,
+          "shift_yx": [
+            -0.2623959036102322,
+            0.04216330147659893
+          ],
+          "mean_delta": 0.007176004815846682,
+          "absolute_mean_delta": 0.007176004815846682,
+          "registered_mae_8bit": 1.2547036409378052,
+          "registered_rms_8bit": 1.6418778896331787,
+          "registered_sigma1_rms_8bit": 0.7987156510353088,
+          "registered_sigma4_rms_8bit": 0.5931462645530701,
+          "registered_sigma8_rms_8bit": 0.48365435004234314
+        }
+      ],
+      "mean": {
+        "mean_delta": 0.6034665786195547,
+        "absolute_mean_delta": 3.1809521161485463,
+        "registered_mae_8bit": 3.4640381217002867,
+        "registered_rms_8bit": 3.878701114654541,
+        "registered_sigma1_rms_8bit": 3.370445305109024,
+        "registered_sigma4_rms_8bit": 3.236503130197525,
+        "registered_sigma8_rms_8bit": 3.0158382624387743
+      }
+    },
+    "fixed_final": {
+      "pairs": [
+        {
+          "frame": 56,
+          "shift_yx": [
+            -0.01304377002743796,
+            0.11249018900957068
+          ],
+          "mean_delta": 0.4661988615989685,
+          "absolute_mean_delta": 0.4661988615989685,
+          "registered_mae_8bit": 1.0527852773666382,
+          "registered_rms_8bit": 1.398876667022705,
+          "registered_sigma1_rms_8bit": 0.6839290857315063,
+          "registered_sigma4_rms_8bit": 0.5762857794761658,
+          "registered_sigma8_rms_8bit": 0.4742066562175751
+        },
+        {
+          "frame": 57,
+          "shift_yx": [
+            0.0041396946196205694,
+            0.0900949485157898
+          ],
+          "mean_delta": -0.03994079679250717,
+          "absolute_mean_delta": 0.03994079679250717,
+          "registered_mae_8bit": 0.9998296499252319,
+          "registered_rms_8bit": 1.3312512636184692,
+          "registered_sigma1_rms_8bit": 0.5003108382225037,
+          "registered_sigma4_rms_8bit": 0.2477477490901947,
+          "registered_sigma8_rms_8bit": 0.18187624216079712
+        },
+        {
+          "frame": 58,
+          "shift_yx": [
+            0.06557849647953608,
+            0.13519043520522409
+          ],
+          "mean_delta": -0.3338707387447357,
+          "absolute_mean_delta": 0.3338707387447357,
+          "registered_mae_8bit": 0.9465246796607971,
+          "registered_rms_8bit": 1.3186358213424683,
+          "registered_sigma1_rms_8bit": 0.5645925402641296,
+          "registered_sigma4_rms_8bit": 0.48407629132270813,
+          "registered_sigma8_rms_8bit": 0.5051200985908508
+        },
+        {
+          "frame": 59,
+          "shift_yx": [
+            0.009287296592331764,
+            0.08154637004598046
+          ],
+          "mean_delta": -0.4187958240509033,
+          "absolute_mean_delta": 0.4187958240509033,
+          "registered_mae_8bit": 1.103149175643921,
+          "registered_rms_8bit": 1.599723219871521,
+          "registered_sigma1_rms_8bit": 0.6516402959823608,
+          "registered_sigma4_rms_8bit": 0.4236081540584564,
+          "registered_sigma8_rms_8bit": 0.3416564166545868
+        },
+        {
+          "frame": 60,
+          "shift_yx": [
+            -0.028615676337584387,
+            0.08971994124364055
+          ],
+          "mean_delta": 0.46010124683380127,
+          "absolute_mean_delta": 0.46010124683380127,
+          "registered_mae_8bit": 1.1119425296783447,
+          "registered_rms_8bit": 1.5528417825698853,
+          "registered_sigma1_rms_8bit": 0.6821821928024292,
+          "registered_sigma4_rms_8bit": 0.51356440782547,
+          "registered_sigma8_rms_8bit": 0.49071022868156433
+        },
+        {
+          "frame": 61,
+          "shift_yx": [
+            0.03682060924834969,
+            0.07159528469482271
+          ],
+          "mean_delta": -0.40533241629600525,
+          "absolute_mean_delta": 0.40533241629600525,
+          "registered_mae_8bit": 1.1348079442977905,
+          "registered_rms_8bit": 1.8153629302978516,
+          "registered_sigma1_rms_8bit": 0.7135329842567444,
+          "registered_sigma4_rms_8bit": 0.44501808285713196,
+          "registered_sigma8_rms_8bit": 0.43052974343299866
+        },
+        {
+          "frame": 62,
+          "shift_yx": [
+            0.037925909217460634,
+            0.06806848711395473
+          ],
+          "mean_delta": -0.2499016374349594,
+          "absolute_mean_delta": 0.2499016374349594,
+          "registered_mae_8bit": 1.0155633687973022,
+          "registered_rms_8bit": 1.425431489944458,
+          "registered_sigma1_rms_8bit": 0.5283763408660889,
+          "registered_sigma4_rms_8bit": 0.27191218733787537,
+          "registered_sigma8_rms_8bit": 0.22815190255641937
+        },
+        {
+          "frame": 63,
+          "shift_yx": [
+            -0.02279533356859226,
+            0.07748709606126764
+          ],
+          "mean_delta": 0.3595673739910126,
+          "absolute_mean_delta": 0.3595673739910126,
+          "registered_mae_8bit": 0.9737153053283691,
+          "registered_rms_8bit": 1.3268961906433105,
+          "registered_sigma1_rms_8bit": 0.5256325006484985,
+          "registered_sigma4_rms_8bit": 0.3739515244960785,
+          "registered_sigma8_rms_8bit": 0.31928688287734985
+        },
+        {
+          "frame": 64,
+          "shift_yx": [
+            -0.011839922160073858,
+            0.11462881919224242
+          ],
+          "mean_delta": -0.06239566206932068,
+          "absolute_mean_delta": 0.06239566206932068,
+          "registered_mae_8bit": 0.8575027585029602,
+          "registered_rms_8bit": 1.2344285249710083,
+          "registered_sigma1_rms_8bit": 0.39490678906440735,
+          "registered_sigma4_rms_8bit": 0.14679934084415436,
+          "registered_sigma8_rms_8bit": 0.07942686229944229
+        },
+        {
+          "frame": 65,
+          "shift_yx": [
+            -0.06224695072867315,
+            0.10991599209776629
+          ],
+          "mean_delta": 0.818657636642456,
+          "absolute_mean_delta": 0.818657636642456,
+          "registered_mae_8bit": 1.0687904357910156,
+          "registered_rms_8bit": 1.4232200384140015,
+          "registered_sigma1_rms_8bit": 0.918840765953064,
+          "registered_sigma4_rms_8bit": 0.860823392868042,
+          "registered_sigma8_rms_8bit": 0.8124825954437256
+        }
+      ],
+      "mean": {
+        "mean_delta": 0.05942880436778068,
+        "absolute_mean_delta": 0.361476219445467,
+        "registered_mae_8bit": 1.026461112499237,
+        "registered_rms_8bit": 1.4426667928695678,
+        "registered_sigma1_rms_8bit": 0.6163944333791733,
+        "registered_sigma4_rms_8bit": 0.4343786910176277,
+        "registered_sigma8_rms_8bit": 0.38634476289153097
+      }
+    },
+    "reduction_percent": {
+      "absolute_mean_delta": 88.63622568820252,
+      "registered_sigma4_rms_8bit": 86.57876499593814,
+      "registered_sigma8_rms_8bit": 87.18947339771759
+    }
+  },
+  "3_prawa_strona_bramy": {
+    "registration_rect": [
+      890,
+      665,
+      945,
+      780
+    ],
+    "measurement_rect": [
+      910,
+      694,
+      935,
+      742
+    ],
+    "legacy": {
+      "pairs": [
+        {
+          "frame": 56,
+          "shift_yx": [
+            -0.008934360747488561,
+            0.20089338699555367
+          ],
+          "mean_delta": 9.452139854431152,
+          "absolute_mean_delta": 9.452139854431152,
+          "registered_mae_8bit": 9.473602294921875,
+          "registered_rms_8bit": 9.841925621032715,
+          "registered_sigma1_rms_8bit": 9.612767219543457,
+          "registered_sigma4_rms_8bit": 9.27087688446045,
+          "registered_sigma8_rms_8bit": 8.536141395568848
+        },
+        {
+          "frame": 57,
+          "shift_yx": [
+            -0.253729043208953,
+            0.04824602075832963
+          ],
+          "mean_delta": 0.8778404593467712,
+          "absolute_mean_delta": 0.8778404593467712,
+          "registered_mae_8bit": 1.9464656114578247,
+          "registered_rms_8bit": 2.532973289489746,
+          "registered_sigma1_rms_8bit": 1.7083234786987305,
+          "registered_sigma4_rms_8bit": 1.4080849885940552,
+          "registered_sigma8_rms_8bit": 1.320543646812439
+        },
+        {
+          "frame": 58,
+          "shift_yx": [
+            -0.1956203306487955,
+            -0.06124613830106212
+          ],
+          "mean_delta": 0.7397143244743347,
+          "absolute_mean_delta": 0.7397143244743347,
+          "registered_mae_8bit": 2.260150909423828,
+          "registered_rms_8bit": 2.8141791820526123,
+          "registered_sigma1_rms_8bit": 1.9184470176696777,
+          "registered_sigma4_rms_8bit": 1.3827509880065918,
+          "registered_sigma8_rms_8bit": 0.9506153464317322
+        },
+        {
+          "frame": 59,
+          "shift_yx": [
+            -0.052044953440253484,
+            -0.38701378768845013
+          ],
+          "mean_delta": -6.729893684387207,
+          "absolute_mean_delta": 6.729893684387207,
+          "registered_mae_8bit": 6.749556064605713,
+          "registered_rms_8bit": 7.216516494750977,
+          "registered_sigma1_rms_8bit": 6.918073654174805,
+          "registered_sigma4_rms_8bit": 6.716859340667725,
+          "registered_sigma8_rms_8bit": 6.239698886871338
+        },
+        {
+          "frame": 60,
+          "shift_yx": [
+            0.1023129169446516,
+            0.07678749507589959
+          ],
+          "mean_delta": -1.019616961479187,
+          "absolute_mean_delta": 1.019616961479187,
+          "registered_mae_8bit": 1.8590764999389648,
+          "registered_rms_8bit": 2.5060486793518066,
+          "registered_sigma1_rms_8bit": 1.3529644012451172,
+          "registered_sigma4_rms_8bit": 1.1705328226089478,
+          "registered_sigma8_rms_8bit": 0.9382219910621643
+        },
+        {
+          "frame": 61,
+          "shift_yx": [
+            -0.03759979592238008,
+            -0.03029679344138383
+          ],
+          "mean_delta": 0.22196248173713684,
+          "absolute_mean_delta": 0.22196248173713684,
+          "registered_mae_8bit": 2.1406824588775635,
+          "registered_rms_8bit": 2.859548330307007,
+          "registered_sigma1_rms_8bit": 1.0548421144485474,
+          "registered_sigma4_rms_8bit": 0.7179349064826965,
+          "registered_sigma8_rms_8bit": 0.5173682570457458
+        },
+        {
+          "frame": 62,
+          "shift_yx": [
+            -0.1138814669326678,
+            0.008596324078934282
+          ],
+          "mean_delta": -1.5036373138427734,
+          "absolute_mean_delta": 1.5036373138427734,
+          "registered_mae_8bit": 2.265986442565918,
+          "registered_rms_8bit": 2.8412933349609375,
+          "registered_sigma1_rms_8bit": 1.8213876485824585,
+          "registered_sigma4_rms_8bit": 1.4781426191329956,
+          "registered_sigma8_rms_8bit": 1.2817975282669067
+        },
+        {
+          "frame": 63,
+          "shift_yx": [
+            0.057776689024904945,
+            0.11507315245643313
+          ],
+          "mean_delta": 0.8814688324928284,
+          "absolute_mean_delta": 0.8814688324928284,
+          "registered_mae_8bit": 2.1878905296325684,
+          "registered_rms_8bit": 2.891514778137207,
+          "registered_sigma1_rms_8bit": 1.4601629972457886,
+          "registered_sigma4_rms_8bit": 1.1339102983474731,
+          "registered_sigma8_rms_8bit": 0.8509832620620728
+        },
+        {
+          "frame": 64,
+          "shift_yx": [
+            -0.17040824790409137,
+            -0.3197637124897199
+          ],
+          "mean_delta": -4.904544830322266,
+          "absolute_mean_delta": 4.904544830322266,
+          "registered_mae_8bit": 4.935885429382324,
+          "registered_rms_8bit": 5.3749871253967285,
+          "registered_sigma1_rms_8bit": 5.012745380401611,
+          "registered_sigma4_rms_8bit": 4.927767753601074,
+          "registered_sigma8_rms_8bit": 4.702036380767822
+        },
+        {
+          "frame": 65,
+          "shift_yx": [
+            -0.10048304509267632,
+            0.22773969773776745
+          ],
+          "mean_delta": 3.110395669937134,
+          "absolute_mean_delta": 3.110395669937134,
+          "registered_mae_8bit": 3.344719171524048,
+          "registered_rms_8bit": 3.98026180267334,
+          "registered_sigma1_rms_8bit": 3.298813819885254,
+          "registered_sigma4_rms_8bit": 3.200855255126953,
+          "registered_sigma8_rms_8bit": 2.9422645568847656
+        }
+      ],
+      "mean": {
+        "mean_delta": 0.11258288323879242,
+        "absolute_mean_delta": 2.944121441245079,
+        "registered_mae_8bit": 3.7164015412330627,
+        "registered_rms_8bit": 4.285924863815308,
+        "registered_sigma1_rms_8bit": 3.4158527731895445,
+        "registered_sigma4_rms_8bit": 3.140771585702896,
+        "registered_sigma8_rms_8bit": 2.8279671251773832
+      }
+    },
+    "fixed_final": {
+      "pairs": [
+        {
+          "frame": 56,
+          "shift_yx": [
+            0.018299244089362413,
+            0.014168372676834205
+          ],
+          "mean_delta": 0.4453611671924591,
+          "absolute_mean_delta": 0.4453611671924591,
+          "registered_mae_8bit": 1.0059678554534912,
+          "registered_rms_8bit": 1.3582907915115356,
+          "registered_sigma1_rms_8bit": 0.6152494549751282,
+          "registered_sigma4_rms_8bit": 0.43883025646209717,
+          "registered_sigma8_rms_8bit": 0.40620625019073486
+        },
+        {
+          "frame": 57,
+          "shift_yx": [
+            0.029260380387580064,
+            0.04782259496045552
+          ],
+          "mean_delta": 0.4226881265640259,
+          "absolute_mean_delta": 0.4226881265640259,
+          "registered_mae_8bit": 0.9307550191879272,
+          "registered_rms_8bit": 1.258346438407898,
+          "registered_sigma1_rms_8bit": 0.5638874769210815,
+          "registered_sigma4_rms_8bit": 0.43539413809776306,
+          "registered_sigma8_rms_8bit": 0.37952932715415955
+        },
+        {
+          "frame": 58,
+          "shift_yx": [
+            -0.1111532467204099,
+            0.05637496178800342
+          ],
+          "mean_delta": 0.2425919622182846,
+          "absolute_mean_delta": 0.2425919622182846,
+          "registered_mae_8bit": 0.9833666086196899,
+          "registered_rms_8bit": 1.3505138158798218,
+          "registered_sigma1_rms_8bit": 0.5348044633865356,
+          "registered_sigma4_rms_8bit": 0.30155906081199646,
+          "registered_sigma8_rms_8bit": 0.2513837516307831
+        },
+        {
+          "frame": 59,
+          "shift_yx": [
+            -0.09383946719346023,
+            0.04154767094556475
+          ],
+          "mean_delta": 0.2753886878490448,
+          "absolute_mean_delta": 0.2753886878490448,
+          "registered_mae_8bit": 1.0910192728042603,
+          "registered_rms_8bit": 1.5265624523162842,
+          "registered_sigma1_rms_8bit": 0.5297691822052002,
+          "registered_sigma4_rms_8bit": 0.3170182704925537,
+          "registered_sigma8_rms_8bit": 0.27070680260658264
+        },
+        {
+          "frame": 60,
+          "shift_yx": [
+            -0.018222740857677357,
+            -0.036968873544516875
+          ],
+          "mean_delta": 0.2721806764602661,
+          "absolute_mean_delta": 0.2721806764602661,
+          "registered_mae_8bit": 1.1949613094329834,
+          "registered_rms_8bit": 1.7088723182678223,
+          "registered_sigma1_rms_8bit": 0.6059992909431458,
+          "registered_sigma4_rms_8bit": 0.3167337477207184,
+          "registered_sigma8_rms_8bit": 0.26376020908355713
+        },
+        {
+          "frame": 61,
+          "shift_yx": [
+            -0.017802024299732266,
+            -0.039007266974096295
+          ],
+          "mean_delta": 0.3268747627735138,
+          "absolute_mean_delta": 0.3268747627735138,
+          "registered_mae_8bit": 1.1483819484710693,
+          "registered_rms_8bit": 1.5508512258529663,
+          "registered_sigma1_rms_8bit": 0.6481732130050659,
+          "registered_sigma4_rms_8bit": 0.4313545823097229,
+          "registered_sigma8_rms_8bit": 0.3850145936012268
+        },
+        {
+          "frame": 62,
+          "shift_yx": [
+            -0.007641261799226303,
+            0.03104338388974542
+          ],
+          "mean_delta": 0.5320196747779846,
+          "absolute_mean_delta": 0.5320196747779846,
+          "registered_mae_8bit": 1.2485783100128174,
+          "registered_rms_8bit": 1.6816530227661133,
+          "registered_sigma1_rms_8bit": 0.7773362994194031,
+          "registered_sigma4_rms_8bit": 0.5673170685768127,
+          "registered_sigma8_rms_8bit": 0.49190229177474976
+        },
+        {
+          "frame": 63,
+          "shift_yx": [
+            0.002674049050851038,
+            -0.02938999125208704
+          ],
+          "mean_delta": 0.24207280576229095,
+          "absolute_mean_delta": 0.24207280576229095,
+          "registered_mae_8bit": 0.9729405641555786,
+          "registered_rms_8bit": 1.3554326295852661,
+          "registered_sigma1_rms_8bit": 0.49693748354911804,
+          "registered_sigma4_rms_8bit": 0.29853489995002747,
+          "registered_sigma8_rms_8bit": 0.2882724106311798
+        },
+        {
+          "frame": 64,
+          "shift_yx": [
+            -0.021777663830680454,
+            -0.044457238942011694
+          ],
+          "mean_delta": 0.7065107226371765,
+          "absolute_mean_delta": 0.7065107226371765,
+          "registered_mae_8bit": 1.1096278429031372,
+          "registered_rms_8bit": 1.4708601236343384,
+          "registered_sigma1_rms_8bit": 0.8543950915336609,
+          "registered_sigma4_rms_8bit": 0.7108671069145203,
+          "registered_sigma8_rms_8bit": 0.6948951482772827
+        },
+        {
+          "frame": 65,
+          "shift_yx": [
+            0.018785942923676392,
+            0.04181800496102721
+          ],
+          "mean_delta": 0.13930439949035645,
+          "absolute_mean_delta": 0.13930439949035645,
+          "registered_mae_8bit": 0.9199650883674622,
+          "registered_rms_8bit": 1.2984769344329834,
+          "registered_sigma1_rms_8bit": 0.5296255350112915,
+          "registered_sigma4_rms_8bit": 0.35914936661720276,
+          "registered_sigma8_rms_8bit": 0.2566811144351959
+        }
+      ],
+      "mean": {
+        "mean_delta": 0.36049929857254026,
+        "absolute_mean_delta": 0.36049929857254026,
+        "registered_mae_8bit": 1.0605563819408417,
+        "registered_rms_8bit": 1.4559859752655029,
+        "registered_sigma1_rms_8bit": 0.615617749094963,
+        "registered_sigma4_rms_8bit": 0.4176758497953415,
+        "registered_sigma8_rms_8bit": 0.36883518993854525
+      }
+    },
+    "reduction_percent": {
+      "absolute_mean_delta": 87.7552843601423,
+      "registered_sigma4_rms_8bit": 86.7014891596497,
+      "registered_sigma8_rms_8bit": 86.95758565738595
+    }
+  },
+  "4_przy_budynku": {
+    "registration_rect": [
+      1000,
+      630,
+      1090,
+      780
+    ],
+    "measurement_rect": [
+      1033,
+      650,
+      1050,
+      735
+    ],
+    "legacy": {
+      "pairs": [
+        {
+          "frame": 56,
+          "shift_yx": [
+            0.04469329717879342,
+            0.09614461174390972
+          ],
+          "mean_delta": -0.1808352768421173,
+          "absolute_mean_delta": 0.1808352768421173,
+          "registered_mae_8bit": 1.4508029222488403,
+          "registered_rms_8bit": 1.8282787799835205,
+          "registered_sigma1_rms_8bit": 1.2014329433441162,
+          "registered_sigma4_rms_8bit": 0.8760610222816467,
+          "registered_sigma8_rms_8bit": 0.6392555236816406
+        },
+        {
+          "frame": 57,
+          "shift_yx": [
+            -0.32588498542348354,
+            -0.012758307843527201
+          ],
+          "mean_delta": -0.5201444625854492,
+          "absolute_mean_delta": 0.5201444625854492,
+          "registered_mae_8bit": 1.6569751501083374,
+          "registered_rms_8bit": 2.098177433013916,
+          "registered_sigma1_rms_8bit": 1.6173909902572632,
+          "registered_sigma4_rms_8bit": 1.3242567777633667,
+          "registered_sigma8_rms_8bit": 1.1058251857757568
+        },
+        {
+          "frame": 58,
+          "shift_yx": [
+            0.18351809202466957,
+            0.08985272571927203
+          ],
+          "mean_delta": -0.1798945516347885,
+          "absolute_mean_delta": 0.1798945516347885,
+          "registered_mae_8bit": 1.4907230138778687,
+          "registered_rms_8bit": 1.9175539016723633,
+          "registered_sigma1_rms_8bit": 1.253867506980896,
+          "registered_sigma4_rms_8bit": 0.9575381278991699,
+          "registered_sigma8_rms_8bit": 0.835418701171875
+        },
+        {
+          "frame": 59,
+          "shift_yx": [
+            -0.22669716427286682,
+            0.0068029424407338975
+          ],
+          "mean_delta": 1.0924761295318604,
+          "absolute_mean_delta": 1.0924761295318604,
+          "registered_mae_8bit": 1.8459961414337158,
+          "registered_rms_8bit": 2.313868522644043,
+          "registered_sigma1_rms_8bit": 1.8509032726287842,
+          "registered_sigma4_rms_8bit": 1.6432698965072632,
+          "registered_sigma8_rms_8bit": 1.3813375234603882
+        },
+        {
+          "frame": 60,
+          "shift_yx": [
+            -0.12405797684338205,
+            0.009737798546255725
+          ],
+          "mean_delta": 2.758341073989868,
+          "absolute_mean_delta": 2.758341073989868,
+          "registered_mae_8bit": 3.2238142490386963,
+          "registered_rms_8bit": 3.9225473403930664,
+          "registered_sigma1_rms_8bit": 3.690585136413574,
+          "registered_sigma4_rms_8bit": 3.5013294219970703,
+          "registered_sigma8_rms_8bit": 3.2203269004821777
+        },
+        {
+          "frame": 61,
+          "shift_yx": [
+            0.3668825260707754,
+            0.16269985675743234
+          ],
+          "mean_delta": -3.2790143489837646,
+          "absolute_mean_delta": 3.2790143489837646,
+          "registered_mae_8bit": 3.7767128944396973,
+          "registered_rms_8bit": 4.685075283050537,
+          "registered_sigma1_rms_8bit": 4.494140625,
+          "registered_sigma4_rms_8bit": 4.309507846832275,
+          "registered_sigma8_rms_8bit": 3.9981181621551514
+        },
+        {
+          "frame": 62,
+          "shift_yx": [
+            -0.39598795186194397,
+            0.045528951873425164
+          ],
+          "mean_delta": -0.11335888504981995,
+          "absolute_mean_delta": 0.11335888504981995,
+          "registered_mae_8bit": 2.044124126434326,
+          "registered_rms_8bit": 2.4918594360351562,
+          "registered_sigma1_rms_8bit": 2.116086959838867,
+          "registered_sigma4_rms_8bit": 1.9089698791503906,
+          "registered_sigma8_rms_8bit": 1.6069327592849731
+        },
+        {
+          "frame": 63,
+          "shift_yx": [
+            0.22135816915774603,
+            -0.01522563742630742
+          ],
+          "mean_delta": 0.008938081562519073,
+          "absolute_mean_delta": 0.008938081562519073,
+          "registered_mae_8bit": 1.6106462478637695,
+          "registered_rms_8bit": 2.0198073387145996,
+          "registered_sigma1_rms_8bit": 1.4300212860107422,
+          "registered_sigma4_rms_8bit": 1.1528433561325073,
+          "registered_sigma8_rms_8bit": 0.8938454389572144
+        },
+        {
+          "frame": 64,
+          "shift_yx": [
+            -0.15857066218044866,
+            0.010155152386569633
+          ],
+          "mean_delta": -0.5273256897926331,
+          "absolute_mean_delta": 0.5273256897926331,
+          "registered_mae_8bit": 1.4754678010940552,
+          "registered_rms_8bit": 1.8663654327392578,
+          "registered_sigma1_rms_8bit": 1.300944447517395,
+          "registered_sigma4_rms_8bit": 1.0193450450897217,
+          "registered_sigma8_rms_8bit": 0.7716845870018005
+        },
+        {
+          "frame": 65,
+          "shift_yx": [
+            0.04270360271521851,
+            0.07318868504465907
+          ],
+          "mean_delta": 1.0693670511245728,
+          "absolute_mean_delta": 1.0693670511245728,
+          "registered_mae_8bit": 1.703521728515625,
+          "registered_rms_8bit": 2.2062296867370605,
+          "registered_sigma1_rms_8bit": 1.395037293434143,
+          "registered_sigma4_rms_8bit": 1.1371512413024902,
+          "registered_sigma8_rms_8bit": 0.9676631689071655
+        }
+      ],
+      "mean": {
+        "mean_delta": 0.012854912132024766,
+        "absolute_mean_delta": 0.9729695551097393,
+        "registered_mae_8bit": 2.027878427505493,
+        "registered_rms_8bit": 2.5349763154983522,
+        "registered_sigma1_rms_8bit": 2.0350410461425783,
+        "registered_sigma4_rms_8bit": 1.7830272614955902,
+        "registered_sigma8_rms_8bit": 1.5420407950878143
+      }
+    },
+    "fixed_final": {
+      "pairs": [
+        {
+          "frame": 56,
+          "shift_yx": [
+            0.0010424385835053132,
+            0.03545065441855015
+          ],
+          "mean_delta": -0.06373123824596405,
+          "absolute_mean_delta": 0.06373123824596405,
+          "registered_mae_8bit": 0.6362806558609009,
+          "registered_rms_8bit": 0.8563107252120972,
+          "registered_sigma1_rms_8bit": 0.4768315553665161,
+          "registered_sigma4_rms_8bit": 0.3178122341632843,
+          "registered_sigma8_rms_8bit": 0.20583420991897583
+        },
+        {
+          "frame": 57,
+          "shift_yx": [
+            0.0065002689469073165,
+            0.04100739991358639
+          ],
+          "mean_delta": 0.12220734357833862,
+          "absolute_mean_delta": 0.12220734357833862,
+          "registered_mae_8bit": 0.6306520700454712,
+          "registered_rms_8bit": 0.8330206871032715,
+          "registered_sigma1_rms_8bit": 0.5210316777229309,
+          "registered_sigma4_rms_8bit": 0.4003894031047821,
+          "registered_sigma8_rms_8bit": 0.3245983421802521
+        },
+        {
+          "frame": 58,
+          "shift_yx": [
+            -0.0759524309125918,
+            0.038911487359007846
+          ],
+          "mean_delta": 0.12420720607042313,
+          "absolute_mean_delta": 0.12420720607042313,
+          "registered_mae_8bit": 0.6186479330062866,
+          "registered_rms_8bit": 0.8229143023490906,
+          "registered_sigma1_rms_8bit": 0.45499011874198914,
+          "registered_sigma4_rms_8bit": 0.2773285508155823,
+          "registered_sigma8_rms_8bit": 0.18568167090415955
+        },
+        {
+          "frame": 59,
+          "shift_yx": [
+            -0.029934705723640213,
+            0.03429272953214507
+          ],
+          "mean_delta": 0.34801995754241943,
+          "absolute_mean_delta": 0.34801995754241943,
+          "registered_mae_8bit": 0.6524412631988525,
+          "registered_rms_8bit": 0.8820680379867554,
+          "registered_sigma1_rms_8bit": 0.5520971417427063,
+          "registered_sigma4_rms_8bit": 0.40522319078445435,
+          "registered_sigma8_rms_8bit": 0.3550899922847748
+        },
+        {
+          "frame": 60,
+          "shift_yx": [
+            -0.0073036737468915505,
+            0.04806595445930653
+          ],
+          "mean_delta": 0.14136968553066254,
+          "absolute_mean_delta": 0.14136968553066254,
+          "registered_mae_8bit": 0.6379961967468262,
+          "registered_rms_8bit": 0.8349757790565491,
+          "registered_sigma1_rms_8bit": 0.4832642376422882,
+          "registered_sigma4_rms_8bit": 0.3277011811733246,
+          "registered_sigma8_rms_8bit": 0.25089147686958313
+        },
+        {
+          "frame": 61,
+          "shift_yx": [
+            -0.017057195534529754,
+            0.04638339452344131
+          ],
+          "mean_delta": -0.07116078585386276,
+          "absolute_mean_delta": 0.07116078585386276,
+          "registered_mae_8bit": 0.6902272701263428,
+          "registered_rms_8bit": 0.9051752090454102,
+          "registered_sigma1_rms_8bit": 0.5566114783287048,
+          "registered_sigma4_rms_8bit": 0.38051238656044006,
+          "registered_sigma8_rms_8bit": 0.2370307296514511
+        },
+        {
+          "frame": 62,
+          "shift_yx": [
+            -0.001313690579581311,
+            0.03805852986854521
+          ],
+          "mean_delta": 0.22179670631885529,
+          "absolute_mean_delta": 0.22179670631885529,
+          "registered_mae_8bit": 0.7660428285598755,
+          "registered_rms_8bit": 1.0112583637237549,
+          "registered_sigma1_rms_8bit": 0.5973485708236694,
+          "registered_sigma4_rms_8bit": 0.39828404784202576,
+          "registered_sigma8_rms_8bit": 0.2822341322898865
+        },
+        {
+          "frame": 63,
+          "shift_yx": [
+            0.015498683720956705,
+            0.03963465128972815
+          ],
+          "mean_delta": 0.16169530153274536,
+          "absolute_mean_delta": 0.16169530153274536,
+          "registered_mae_8bit": 0.6536508202552795,
+          "registered_rms_8bit": 0.8831284046173096,
+          "registered_sigma1_rms_8bit": 0.4779755175113678,
+          "registered_sigma4_rms_8bit": 0.34762734174728394,
+          "registered_sigma8_rms_8bit": 0.2842734754085541
+        },
+        {
+          "frame": 64,
+          "shift_yx": [
+            -0.03649423657022109,
+            0.03450282884197724
+          ],
+          "mean_delta": 0.20501142740249634,
+          "absolute_mean_delta": 0.20501142740249634,
+          "registered_mae_8bit": 0.6065293550491333,
+          "registered_rms_8bit": 0.8066254258155823,
+          "registered_sigma1_rms_8bit": 0.40556129813194275,
+          "registered_sigma4_rms_8bit": 0.26526984572410583,
+          "registered_sigma8_rms_8bit": 0.2548036575317383
+        },
+        {
+          "frame": 65,
+          "shift_yx": [
+            0.007400517607639472,
+            0.032964799031333224
+          ],
+          "mean_delta": -0.003924053627997637,
+          "absolute_mean_delta": 0.003924053627997637,
+          "registered_mae_8bit": 0.6965963840484619,
+          "registered_rms_8bit": 0.9719280004501343,
+          "registered_sigma1_rms_8bit": 0.4513264000415802,
+          "registered_sigma4_rms_8bit": 0.24235481023788452,
+          "registered_sigma8_rms_8bit": 0.19842767715454102
+        }
+      ],
+      "mean": {
+        "mean_delta": 0.11854915502481163,
+        "absolute_mean_delta": 0.14631237057037652,
+        "registered_mae_8bit": 0.6589064776897431,
+        "registered_rms_8bit": 0.8807404935359955,
+        "registered_sigma1_rms_8bit": 0.4977037996053696,
+        "registered_sigma4_rms_8bit": 0.3362502992153168,
+        "registered_sigma8_rms_8bit": 0.25788653641939163
+      }
+    },
+    "reduction_percent": {
+      "absolute_mean_delta": 84.96228686684094,
+      "registered_sigma4_rms_8bit": 81.14160638613723,
+      "registered_sigma8_rms_8bit": 83.27628314108864
+    }
+  },
+  "5_elewacja_lewa": {
+    "registration_rect": [
+      1065,
+      560,
+      1190,
+      775
+    ],
+    "measurement_rect": [
+      1088,
+      680,
+      1140,
+      740
+    ],
+    "legacy": {
+      "pairs": [
+        {
+          "frame": 56,
+          "shift_yx": [
+            0.026154916539794328,
+            -0.017753352142141385
+          ],
+          "mean_delta": 0.32382047176361084,
+          "absolute_mean_delta": 0.32382047176361084,
+          "registered_mae_8bit": 0.4780282974243164,
+          "registered_rms_8bit": 0.6537789702415466,
+          "registered_sigma1_rms_8bit": 0.4491927921772003,
+          "registered_sigma4_rms_8bit": 0.35852116346359253,
+          "registered_sigma8_rms_8bit": 0.33833396434783936
+        },
+        {
+          "frame": 57,
+          "shift_yx": [
+            -0.0057174581040362665,
+            0.039804010979116546
+          ],
+          "mean_delta": -0.20274613797664642,
+          "absolute_mean_delta": 0.20274613797664642,
+          "registered_mae_8bit": 0.4438546895980835,
+          "registered_rms_8bit": 0.6147319078445435,
+          "registered_sigma1_rms_8bit": 0.40184497833251953,
+          "registered_sigma4_rms_8bit": 0.285899817943573,
+          "registered_sigma8_rms_8bit": 0.2385309934616089
+        },
+        {
+          "frame": 58,
+          "shift_yx": [
+            0.01824709345273079,
+            0.010784184644037052
+          ],
+          "mean_delta": -0.013166770339012146,
+          "absolute_mean_delta": 0.013166770339012146,
+          "registered_mae_8bit": 0.41372647881507874,
+          "registered_rms_8bit": 0.5852223038673401,
+          "registered_sigma1_rms_8bit": 0.3141544461250305,
+          "registered_sigma4_rms_8bit": 0.15404321253299713,
+          "registered_sigma8_rms_8bit": 0.1329909861087799
+        },
+        {
+          "frame": 59,
+          "shift_yx": [
+            0.0342665445969545,
+            0.014080439713804498
+          ],
+          "mean_delta": -0.04507971182465553,
+          "absolute_mean_delta": 0.04507971182465553,
+          "registered_mae_8bit": 0.4161893129348755,
+          "registered_rms_8bit": 0.5918867588043213,
+          "registered_sigma1_rms_8bit": 0.340336412191391,
+          "registered_sigma4_rms_8bit": 0.21152709424495697,
+          "registered_sigma8_rms_8bit": 0.1608261615037918
+        },
+        {
+          "frame": 60,
+          "shift_yx": [
+            0.008826944389429459,
+            0.03420361764953793
+          ],
+          "mean_delta": -0.4171247184276581,
+          "absolute_mean_delta": 0.4171247184276581,
+          "registered_mae_8bit": 0.5375035405158997,
+          "registered_rms_8bit": 0.720380425453186,
+          "registered_sigma1_rms_8bit": 0.5155346393585205,
+          "registered_sigma4_rms_8bit": 0.4377765655517578,
+          "registered_sigma8_rms_8bit": 0.40355607867240906
+        },
+        {
+          "frame": 61,
+          "shift_yx": [
+            0.04343376066235505,
+            0.035366809853891325
+          ],
+          "mean_delta": 0.5059404969215393,
+          "absolute_mean_delta": 0.5059404969215393,
+          "registered_mae_8bit": 0.6287707090377808,
+          "registered_rms_8bit": 0.8024267554283142,
+          "registered_sigma1_rms_8bit": 0.6472943425178528,
+          "registered_sigma4_rms_8bit": 0.569169819355011,
+          "registered_sigma8_rms_8bit": 0.5225235223770142
+        },
+        {
+          "frame": 62,
+          "shift_yx": [
+            -0.020273197442829547,
+            0.030743282394566005
+          ],
+          "mean_delta": 0.25416550040245056,
+          "absolute_mean_delta": 0.25416550040245056,
+          "registered_mae_8bit": 0.45136672258377075,
+          "registered_rms_8bit": 0.6297138333320618,
+          "registered_sigma1_rms_8bit": 0.42501798272132874,
+          "registered_sigma4_rms_8bit": 0.3303670883178711,
+          "registered_sigma8_rms_8bit": 0.3280830979347229
+        },
+        {
+          "frame": 63,
+          "shift_yx": [
+            0.020542180497759632,
+            0.014321354732798781
+          ],
+          "mean_delta": -0.38516727089881897,
+          "absolute_mean_delta": 0.38516727089881897,
+          "registered_mae_8bit": 0.5041436553001404,
+          "registered_rms_8bit": 0.6808634996414185,
+          "registered_sigma1_rms_8bit": 0.4899230897426605,
+          "registered_sigma4_rms_8bit": 0.41724860668182373,
+          "registered_sigma8_rms_8bit": 0.4040459990501404
+        },
+        {
+          "frame": 64,
+          "shift_yx": [
+            0.024333088787585447,
+            0.026683086931974145
+          ],
+          "mean_delta": 0.34955236315727234,
+          "absolute_mean_delta": 0.34955236315727234,
+          "registered_mae_8bit": 0.5060186386108398,
+          "registered_rms_8bit": 0.6745015382766724,
+          "registered_sigma1_rms_8bit": 0.4895648956298828,
+          "registered_sigma4_rms_8bit": 0.41701021790504456,
+          "registered_sigma8_rms_8bit": 0.38847652077674866
+        },
+        {
+          "frame": 65,
+          "shift_yx": [
+            0.020725375637151603,
+            0.017138188733892456
+          ],
+          "mean_delta": 0.26466119289398193,
+          "absolute_mean_delta": 0.26466119289398193,
+          "registered_mae_8bit": 0.4283108413219452,
+          "registered_rms_8bit": 0.5989031791687012,
+          "registered_sigma1_rms_8bit": 0.3864026963710785,
+          "registered_sigma4_rms_8bit": 0.3004397749900818,
+          "registered_sigma8_rms_8bit": 0.29689595103263855
+        }
+      ],
+      "mean": {
+        "mean_delta": 0.06348554156720639,
+        "absolute_mean_delta": 0.2761424634605646,
+        "registered_mae_8bit": 0.48079128861427306,
+        "registered_rms_8bit": 0.6552409172058106,
+        "registered_sigma1_rms_8bit": 0.4459266275167465,
+        "registered_sigma4_rms_8bit": 0.34820033609867096,
+        "registered_sigma8_rms_8bit": 0.32142632752656936
+      }
+    },
+    "fixed_final": {
+      "pairs": [
+        {
+          "frame": 56,
+          "shift_yx": [
+            0.011321405006660085,
+            0.02819658060019464
+          ],
+          "mean_delta": -0.07074694335460663,
+          "absolute_mean_delta": 0.07074694335460663,
+          "registered_mae_8bit": 0.20171518623828888,
+          "registered_rms_8bit": 0.35699060559272766,
+          "registered_sigma1_rms_8bit": 0.16631481051445007,
+          "registered_sigma4_rms_8bit": 0.10546168684959412,
+          "registered_sigma8_rms_8bit": 0.10659360885620117
+        },
+        {
+          "frame": 57,
+          "shift_yx": [
+            0.02381634489781086,
+            0.02408691116496772
+          ],
+          "mean_delta": -0.12083466351032257,
+          "absolute_mean_delta": 0.12083466351032257,
+          "registered_mae_8bit": 0.24450594186782837,
+          "registered_rms_8bit": 0.40301942825317383,
+          "registered_sigma1_rms_8bit": 0.23550821840763092,
+          "registered_sigma4_rms_8bit": 0.1659306138753891,
+          "registered_sigma8_rms_8bit": 0.14998508989810944
+        },
+        {
+          "frame": 58,
+          "shift_yx": [
+            0.018522562495836746,
+            0.01861505005107798
+          ],
+          "mean_delta": -0.1977592259645462,
+          "absolute_mean_delta": 0.1977592259645462,
+          "registered_mae_8bit": 0.26424017548561096,
+          "registered_rms_8bit": 0.42580297589302063,
+          "registered_sigma1_rms_8bit": 0.2707860469818115,
+          "registered_sigma4_rms_8bit": 0.22271189093589783,
+          "registered_sigma8_rms_8bit": 0.20858459174633026
+        },
+        {
+          "frame": 59,
+          "shift_yx": [
+            0.018180042491684582,
+            0.023133175042382676
+          ],
+          "mean_delta": -0.161418154835701,
+          "absolute_mean_delta": 0.161418154835701,
+          "registered_mae_8bit": 0.2368011474609375,
+          "registered_rms_8bit": 0.3971334993839264,
+          "registered_sigma1_rms_8bit": 0.2281428575515747,
+          "registered_sigma4_rms_8bit": 0.17517361044883728,
+          "registered_sigma8_rms_8bit": 0.1605822741985321
+        },
+        {
+          "frame": 60,
+          "shift_yx": [
+            0.017264714079600584,
+            0.02411995111049018
+          ],
+          "mean_delta": 0.03167083114385605,
+          "absolute_mean_delta": 0.03167083114385605,
+          "registered_mae_8bit": 0.1871463656425476,
+          "registered_rms_8bit": 0.34106510877609253,
+          "registered_sigma1_rms_8bit": 0.16408106684684753,
+          "registered_sigma4_rms_8bit": 0.11208434402942657,
+          "registered_sigma8_rms_8bit": 0.10923857986927032
+        },
+        {
+          "frame": 61,
+          "shift_yx": [
+            0.016867004494307655,
+            0.021470425899252205
+          ],
+          "mean_delta": 0.08561304211616516,
+          "absolute_mean_delta": 0.08561304211616516,
+          "registered_mae_8bit": 0.20203407108783722,
+          "registered_rms_8bit": 0.3590445816516876,
+          "registered_sigma1_rms_8bit": 0.17813386023044586,
+          "registered_sigma4_rms_8bit": 0.11330462992191315,
+          "registered_sigma8_rms_8bit": 0.10406959801912308
+        },
+        {
+          "frame": 62,
+          "shift_yx": [
+            0.015852504808159112,
+            0.02724218635737285
+          ],
+          "mean_delta": -0.00045270187547430396,
+          "absolute_mean_delta": 0.00045270187547430396,
+          "registered_mae_8bit": 0.1876349002122879,
+          "registered_rms_8bit": 0.3421562910079956,
+          "registered_sigma1_rms_8bit": 0.15646983683109283,
+          "registered_sigma4_rms_8bit": 0.07346819341182709,
+          "registered_sigma8_rms_8bit": 0.057844310998916626
+        },
+        {
+          "frame": 63,
+          "shift_yx": [
+            0.020072166022918267,
+            0.02218792531948052
+          ],
+          "mean_delta": 0.09807015210390091,
+          "absolute_mean_delta": 0.09807015210390091,
+          "registered_mae_8bit": 0.20200781524181366,
+          "registered_rms_8bit": 0.35816138982772827,
+          "registered_sigma1_rms_8bit": 0.181235671043396,
+          "registered_sigma4_rms_8bit": 0.11826200783252716,
+          "registered_sigma8_rms_8bit": 0.11417568475008011
+        },
+        {
+          "frame": 64,
+          "shift_yx": [
+            0.03125070674404874,
+            0.025769051044018998
+          ],
+          "mean_delta": 0.09702566266059875,
+          "absolute_mean_delta": 0.09702566266059875,
+          "registered_mae_8bit": 0.21877509355545044,
+          "registered_rms_8bit": 0.37392210960388184,
+          "registered_sigma1_rms_8bit": 0.19810204207897186,
+          "registered_sigma4_rms_8bit": 0.13968928158283234,
+          "registered_sigma8_rms_8bit": 0.13399186730384827
+        },
+        {
+          "frame": 65,
+          "shift_yx": [
+            0.0187619655568532,
+            0.023497076890065346
+          ],
+          "mean_delta": 0.06529316306114197,
+          "absolute_mean_delta": 0.06529316306114197,
+          "registered_mae_8bit": 0.1951390653848648,
+          "registered_rms_8bit": 0.35078805685043335,
+          "registered_sigma1_rms_8bit": 0.16686983406543732,
+          "registered_sigma4_rms_8bit": 0.08775164186954498,
+          "registered_sigma8_rms_8bit": 0.07405033707618713
+        }
+      ],
+      "mean": {
+        "mean_delta": -0.017353883845498786,
+        "absolute_mean_delta": 0.09288845406263135,
+        "registered_mae_8bit": 0.21399997621774675,
+        "registered_rms_8bit": 0.3708084046840668,
+        "registered_sigma1_rms_8bit": 0.19456442445516586,
+        "registered_sigma4_rms_8bit": 0.13138379007577897,
+        "registered_sigma8_rms_8bit": 0.12191159427165985
+      }
+    },
+    "reduction_percent": {
+      "absolute_mean_delta": 66.36212594811714,
+      "registered_sigma4_rms_8bit": 62.267758972366934,
+      "registered_sigma8_rms_8bit": 62.07168367016153
+    }
+  },
+  "6_elewacja_prawa": {
+    "registration_rect": [
+      1500,
+      560,
+      1620,
+      775
+    ],
+    "measurement_rect": [
+      1540,
+      680,
+      1595,
+      740
+    ],
+    "legacy": {
+      "pairs": [
+        {
+          "frame": 56,
+          "shift_yx": [
+            -0.027045364749930922,
+            -0.07717805639918121
+          ],
+          "mean_delta": 1.1296783685684204,
+          "absolute_mean_delta": 1.1296783685684204,
+          "registered_mae_8bit": 1.1448966264724731,
+          "registered_rms_8bit": 1.3092331886291504,
+          "registered_sigma1_rms_8bit": 1.1993818283081055,
+          "registered_sigma4_rms_8bit": 1.1518619060516357,
+          "registered_sigma8_rms_8bit": 1.1309638023376465
+        },
+        {
+          "frame": 57,
+          "shift_yx": [
+            -0.01927733998422846,
+            -0.0136079024232482
+          ],
+          "mean_delta": 0.33063000440597534,
+          "absolute_mean_delta": 0.33063000440597534,
+          "registered_mae_8bit": 0.5223493576049805,
+          "registered_rms_8bit": 0.7010132074356079,
+          "registered_sigma1_rms_8bit": 0.49031952023506165,
+          "registered_sigma4_rms_8bit": 0.3895164132118225,
+          "registered_sigma8_rms_8bit": 0.3563627302646637
+        },
+        {
+          "frame": 58,
+          "shift_yx": [
+            0.04406435066525289,
+            -0.07465013174201598
+          ],
+          "mean_delta": -1.3000891208648682,
+          "absolute_mean_delta": 1.3000891208648682,
+          "registered_mae_8bit": 1.3054543733596802,
+          "registered_rms_8bit": 1.4374158382415771,
+          "registered_sigma1_rms_8bit": 1.3511747121810913,
+          "registered_sigma4_rms_8bit": 1.3223856687545776,
+          "registered_sigma8_rms_8bit": 1.2982109785079956
+        },
+        {
+          "frame": 59,
+          "shift_yx": [
+            -0.03418464706727418,
+            -0.019130018744941725
+          ],
+          "mean_delta": -0.42657551169395447,
+          "absolute_mean_delta": 0.42657551169395447,
+          "registered_mae_8bit": 0.6047589182853699,
+          "registered_rms_8bit": 0.8036594390869141,
+          "registered_sigma1_rms_8bit": 0.6069812178611755,
+          "registered_sigma4_rms_8bit": 0.5166247487068176,
+          "registered_sigma8_rms_8bit": 0.4976097047328949
+        },
+        {
+          "frame": 60,
+          "shift_yx": [
+            0.018526083213455346,
+            -0.02142532244587427
+          ],
+          "mean_delta": -1.7864640951156616,
+          "absolute_mean_delta": 1.7864640951156616,
+          "registered_mae_8bit": 1.7896980047225952,
+          "registered_rms_8bit": 1.9114229679107666,
+          "registered_sigma1_rms_8bit": 1.8330330848693848,
+          "registered_sigma4_rms_8bit": 1.8043972253799438,
+          "registered_sigma8_rms_8bit": 1.7814934253692627
+        },
+        {
+          "frame": 61,
+          "shift_yx": [
+            0.11006496435419283,
+            -0.0813915774709223
+          ],
+          "mean_delta": 2.194580554962158,
+          "absolute_mean_delta": 2.194580554962158,
+          "registered_mae_8bit": 2.1948537826538086,
+          "registered_rms_8bit": 2.299762487411499,
+          "registered_sigma1_rms_8bit": 2.237431526184082,
+          "registered_sigma4_rms_8bit": 2.197948694229126,
+          "registered_sigma8_rms_8bit": 2.150369167327881
+        },
+        {
+          "frame": 62,
+          "shift_yx": [
+            0.03827603045719207,
+            -0.01800071979747097
+          ],
+          "mean_delta": -1.3080986738204956,
+          "absolute_mean_delta": 1.3080986738204956,
+          "registered_mae_8bit": 1.3232914209365845,
+          "registered_rms_8bit": 1.473071813583374,
+          "registered_sigma1_rms_8bit": 1.3672800064086914,
+          "registered_sigma4_rms_8bit": 1.3155150413513184,
+          "registered_sigma8_rms_8bit": 1.2629226446151733
+        },
+        {
+          "frame": 63,
+          "shift_yx": [
+            0.010985926098481499,
+            -0.04300994690802064
+          ],
+          "mean_delta": 0.2106560319662094,
+          "absolute_mean_delta": 0.2106560319662094,
+          "registered_mae_8bit": 0.516955554485321,
+          "registered_rms_8bit": 0.6999523043632507,
+          "registered_sigma1_rms_8bit": 0.45670440793037415,
+          "registered_sigma4_rms_8bit": 0.3383222222328186,
+          "registered_sigma8_rms_8bit": 0.2954816222190857
+        },
+        {
+          "frame": 64,
+          "shift_yx": [
+            -0.019650483642688066,
+            -0.09928900003640491
+          ],
+          "mean_delta": 1.0784374475479126,
+          "absolute_mean_delta": 1.0784374475479126,
+          "registered_mae_8bit": 1.1014231443405151,
+          "registered_rms_8bit": 1.2792662382125854,
+          "registered_sigma1_rms_8bit": 1.1606025695800781,
+          "registered_sigma4_rms_8bit": 1.0876022577285767,
+          "registered_sigma8_rms_8bit": 1.0143883228302002
+        },
+        {
+          "frame": 65,
+          "shift_yx": [
+            -0.01075608030279505,
+            0.005782204846561924
+          ],
+          "mean_delta": -0.8800806403160095,
+          "absolute_mean_delta": 0.8800806403160095,
+          "registered_mae_8bit": 0.9178456664085388,
+          "registered_rms_8bit": 1.1110657453536987,
+          "registered_sigma1_rms_8bit": 0.968856155872345,
+          "registered_sigma4_rms_8bit": 0.8904578685760498,
+          "registered_sigma8_rms_8bit": 0.830049455165863
+        }
+      ],
+      "mean": {
+        "mean_delta": -0.07573256343603134,
+        "absolute_mean_delta": 1.0645290449261666,
+        "registered_mae_8bit": 1.1421526849269867,
+        "registered_rms_8bit": 1.3025863230228425,
+        "registered_sigma1_rms_8bit": 1.167176502943039,
+        "registered_sigma4_rms_8bit": 1.1014632046222688,
+        "registered_sigma8_rms_8bit": 1.0617851853370666
+      }
+    },
+    "fixed_final": {
+      "pairs": [
+        {
+          "frame": 56,
+          "shift_yx": [
+            0.004005459908079211,
+            -0.039938516280160125
+          ],
+          "mean_delta": -0.304665744304657,
+          "absolute_mean_delta": 0.304665744304657,
+          "registered_mae_8bit": 0.342546284198761,
+          "registered_rms_8bit": 0.5000893473625183,
+          "registered_sigma1_rms_8bit": 0.35886916518211365,
+          "registered_sigma4_rms_8bit": 0.3173919916152954,
+          "registered_sigma8_rms_8bit": 0.2989511787891388
+        },
+        {
+          "frame": 57,
+          "shift_yx": [
+            0.01881158524860107,
+            -0.03767965274341206
+          ],
+          "mean_delta": -0.06560751050710678,
+          "absolute_mean_delta": 0.06560751050710678,
+          "registered_mae_8bit": 0.21760320663452148,
+          "registered_rms_8bit": 0.36626094579696655,
+          "registered_sigma1_rms_8bit": 0.18467707931995392,
+          "registered_sigma4_rms_8bit": 0.10280642658472061,
+          "registered_sigma8_rms_8bit": 0.07943437993526459
+        },
+        {
+          "frame": 58,
+          "shift_yx": [
+            0.005297887061949949,
+            -0.0405863517912348
+          ],
+          "mean_delta": -0.19738154113292694,
+          "absolute_mean_delta": 0.19738154113292694,
+          "registered_mae_8bit": 0.2825976312160492,
+          "registered_rms_8bit": 0.4451413154602051,
+          "registered_sigma1_rms_8bit": 0.28511619567871094,
+          "registered_sigma4_rms_8bit": 0.22992417216300964,
+          "registered_sigma8_rms_8bit": 0.21336208283901215
+        },
+        {
+          "frame": 59,
+          "shift_yx": [
+            0.008624032659680085,
+            -0.030665975796895156
+          ],
+          "mean_delta": -0.3115633428096771,
+          "absolute_mean_delta": 0.3115633428096771,
+          "registered_mae_8bit": 0.34097999334335327,
+          "registered_rms_8bit": 0.5073432922363281,
+          "registered_sigma1_rms_8bit": 0.36461231112480164,
+          "registered_sigma4_rms_8bit": 0.32033857703208923,
+          "registered_sigma8_rms_8bit": 0.31416240334510803
+        },
+        {
+          "frame": 60,
+          "shift_yx": [
+            0.021966039373781367,
+            -0.046814147524197026
+          ],
+          "mean_delta": -0.28763219714164734,
+          "absolute_mean_delta": 0.28763219714164734,
+          "registered_mae_8bit": 0.3321303129196167,
+          "registered_rms_8bit": 0.48697471618652344,
+          "registered_sigma1_rms_8bit": 0.34404629468917847,
+          "registered_sigma4_rms_8bit": 0.30281224846839905,
+          "registered_sigma8_rms_8bit": 0.2905489504337311
+        },
+        {
+          "frame": 61,
+          "shift_yx": [
+            0.030301429365863275,
+            -0.03451665407384776
+          ],
+          "mean_delta": -0.08920116722583771,
+          "absolute_mean_delta": 0.08920116722583771,
+          "registered_mae_8bit": 0.2373083084821701,
+          "registered_rms_8bit": 0.38636282086372375,
+          "registered_sigma1_rms_8bit": 0.19885538518428802,
+          "registered_sigma4_rms_8bit": 0.11425275355577469,
+          "registered_sigma8_rms_8bit": 0.09931418299674988
+        },
+        {
+          "frame": 62,
+          "shift_yx": [
+            0.022903388883592776,
+            -0.03322058079198671
+          ],
+          "mean_delta": -0.04243704676628113,
+          "absolute_mean_delta": 0.04243704676628113,
+          "registered_mae_8bit": 0.24780355393886566,
+          "registered_rms_8bit": 0.4011200964450836,
+          "registered_sigma1_rms_8bit": 0.20834021270275116,
+          "registered_sigma4_rms_8bit": 0.12246726453304291,
+          "registered_sigma8_rms_8bit": 0.0868125632405281
+        },
+        {
+          "frame": 63,
+          "shift_yx": [
+            -0.012986180895593393,
+            -0.03851881678519175
+          ],
+          "mean_delta": -0.04437258094549179,
+          "absolute_mean_delta": 0.04437258094549179,
+          "registered_mae_8bit": 0.23058907687664032,
+          "registered_rms_8bit": 0.3833578824996948,
+          "registered_sigma1_rms_8bit": 0.2064581960439682,
+          "registered_sigma4_rms_8bit": 0.1260034143924713,
+          "registered_sigma8_rms_8bit": 0.09034278243780136
+        },
+        {
+          "frame": 64,
+          "shift_yx": [
+            0.013742246863433132,
+            -0.04062285308423521
+          ],
+          "mean_delta": -0.025699356570839882,
+          "absolute_mean_delta": 0.025699356570839882,
+          "registered_mae_8bit": 0.23963193595409393,
+          "registered_rms_8bit": 0.3910413682460785,
+          "registered_sigma1_rms_8bit": 0.1964864730834961,
+          "registered_sigma4_rms_8bit": 0.09704571217298508,
+          "registered_sigma8_rms_8bit": 0.08203504979610443
+        },
+        {
+          "frame": 65,
+          "shift_yx": [
+            0.009520748321639806,
+            -0.03454519308500739
+          ],
+          "mean_delta": -0.14405034482479095,
+          "absolute_mean_delta": 0.14405034482479095,
+          "registered_mae_8bit": 0.26413434743881226,
+          "registered_rms_8bit": 0.4208407998085022,
+          "registered_sigma1_rms_8bit": 0.24334876239299774,
+          "registered_sigma4_rms_8bit": 0.180770605802536,
+          "registered_sigma8_rms_8bit": 0.16391393542289734
+        }
+      ],
+      "mean": {
+        "mean_delta": -0.15126108322292567,
+        "absolute_mean_delta": 0.15126108322292567,
+        "registered_mae_8bit": 0.2735324651002884,
+        "registered_rms_8bit": 0.42885325849056244,
+        "registered_sigma1_rms_8bit": 0.259081007540226,
+        "registered_sigma4_rms_8bit": 0.1913813166320324,
+        "registered_sigma8_rms_8bit": 0.17188775092363356
+      }
+    },
+    "reduction_percent": {
+      "absolute_mean_delta": 85.79079791726897,
+      "registered_sigma4_rms_8bit": 82.62481072187391,
+      "registered_sigma8_rms_8bit": 83.8114381988606
+    }
+  }
+}

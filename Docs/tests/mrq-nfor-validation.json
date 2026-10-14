@@ -1,0 +1,20 @@
+{
+  "date": "2026-10-14",
+  "engine": "UE 5.8",
+  "platform": "Win64 / D3D12 / RTX 5090",
+  "toolchain": "MSVC 14.44.35228, Windows SDK 10.0.22621.0",
+  "build": "Succeeded",
+  "automation": {
+    "succeeded": 1,
+    "succeededWithWarnings": 0,
+    "failed": 0,
+    "notRun": 0
+  },
+  "test_name": "DLSS5OneMinus.OfflineHistory.CadenceAndNFOR",
+  "render_result": {
+    "success": true
+  },
+  "completed_nr_images_256_samples_delay_2": 16,
+  "rendered_pngs": 16,
+  "note": "Local render build included PR #2 in BOTH A/B variants and a separate adapter-checksum compatibility change for the installed local runtime. Neither change is part of this PR. No NVIDIA runtime payload is included."
+}

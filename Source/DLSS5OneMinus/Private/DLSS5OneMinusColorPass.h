@@ -26,7 +26,9 @@ namespace DLSS5OneMinus
         const FSceneView& View,
         FRDGTextureRef SceneDepth,
         FRDGTextureRef SceneVelocity,
-        const FIntRect& InputRect);
+        const FIntRect& InputRect,
+        const FMatrix44f* ClipToPreviousOverride = nullptr,
+        bool bResetMotion = false);
 
     void AddPostToneResolvePass(
         FRDGBuilder& GraphBuilder,

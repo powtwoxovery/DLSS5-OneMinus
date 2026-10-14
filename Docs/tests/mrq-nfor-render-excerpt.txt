@@ -1,0 +1,34 @@
+[2026.10.14-17.18.34:983][  3]LogDLSS5OneMinusOffline: Display: NR offline history: final samples only, samples=1, NFOR guide delay=2, view=7, film grain=0.000.
+[2026.10.14-17.18.35:802][  4]LogDLSS5OneMinusNGXBootstrap: Display: NR submitted feature 18 for Post Tone at 2560x1440 (result 0x00000001, fence 3; completed 2).
+[2026.10.14-17.18.37:287][  9]LogDLSS5OneMinusNGXBootstrap: Display: NR submitted feature 18 for Post Tone at 2560x1440 (result 0x00000001, fence 8; completed 7).
+[2026.10.14-17.18.37:551][ 12]LogDLSS5OneMinusNGXBootstrap: Display: NR submitted feature 18 for Post Tone at 2560x1440 (result 0x00000001, fence 12; completed 11).
+[2026.10.14-17.18.58:470][ 68]LogDLSS5OneMinusOffline: Display: NR offline history: final samples only, samples=256, NFOR guide delay=2, view=7, film grain=0.000.
+[2026.10.14-17.18.58:470][ 68]LogDLSS5OneMinusOffline: Verbose: NR completed PT sample=256/256 frame=1 delay=2 reset=1.
+[2026.10.14-17.19.17:633][ 69]LogDLSS5OneMinusOffline: Verbose: NR completed PT sample=256/256 frame=2 delay=2 reset=1.
+[2026.10.14-17.19.37:045][ 70]LogDLSS5OneMinusOffline: Verbose: NR completed PT sample=256/256 frame=3 delay=2 reset=1.
+[2026.10.14-17.19.58:252][ 71]LogDLSS5OneMinusOffline: Verbose: NR completed PT sample=256/256 frame=4 delay=2 reset=0.
+[2026.10.14-17.20.20:195][ 72]LogNFORDenoise: Frame 1282: Denoised NumOfHistory = 5
+[2026.10.14-17.20.20:195][ 72]LogDLSS5OneMinusOffline: Verbose: NR completed PT sample=256/256 frame=5 delay=2 reset=0.
+[2026.10.14-17.20.42:586][ 73]LogNFORDenoise: Frame 1538: Denoised NumOfHistory = 5
+[2026.10.14-17.20.42:586][ 73]LogDLSS5OneMinusOffline: Verbose: NR completed PT sample=256/256 frame=6 delay=2 reset=0.
+[2026.10.14-17.21.05:067][ 74]LogNFORDenoise: Frame 1794: Denoised NumOfHistory = 5
+[2026.10.14-17.21.05:067][ 74]LogDLSS5OneMinusOffline: Verbose: NR completed PT sample=256/256 frame=7 delay=2 reset=0.
+[2026.10.14-17.21.27:525][ 75]LogNFORDenoise: Frame 2050: Denoised NumOfHistory = 5
+[2026.10.14-17.21.27:525][ 75]LogDLSS5OneMinusOffline: Verbose: NR completed PT sample=256/256 frame=8 delay=2 reset=0.
+[2026.10.14-17.21.50:182][ 76]LogNFORDenoise: Frame 2306: Denoised NumOfHistory = 5
+[2026.10.14-17.21.50:182][ 76]LogDLSS5OneMinusOffline: Verbose: NR completed PT sample=256/256 frame=9 delay=2 reset=0.
+[2026.10.14-17.22.12:747][ 77]LogNFORDenoise: Frame 2562: Denoised NumOfHistory = 5
+[2026.10.14-17.22.12:747][ 77]LogDLSS5OneMinusOffline: Verbose: NR completed PT sample=256/256 frame=10 delay=2 reset=0.
+[2026.10.14-17.22.35:509][ 78]LogNFORDenoise: Frame 2818: Denoised NumOfHistory = 5
+[2026.10.14-17.22.35:509][ 78]LogDLSS5OneMinusOffline: Verbose: NR completed PT sample=256/256 frame=11 delay=2 reset=0.
+[2026.10.14-17.22.58:405][ 79]LogNFORDenoise: Frame 3074: Denoised NumOfHistory = 5
+[2026.10.14-17.22.58:405][ 79]LogDLSS5OneMinusOffline: Verbose: NR completed PT sample=256/256 frame=12 delay=2 reset=0.
+[2026.10.14-17.23.21:627][ 80]LogNFORDenoise: Frame 3330: Denoised NumOfHistory = 5
+[2026.10.14-17.23.21:627][ 80]LogDLSS5OneMinusOffline: Verbose: NR completed PT sample=256/256 frame=13 delay=2 reset=0.
+[2026.10.14-17.23.44:585][ 81]LogNFORDenoise: Frame 3586: Denoised NumOfHistory = 5
+[2026.10.14-17.23.44:585][ 81]LogDLSS5OneMinusOffline: Verbose: NR completed PT sample=256/256 frame=14 delay=2 reset=0.
+[2026.10.14-17.24.07:359][ 82]LogNFORDenoise: Frame 3842: Denoised NumOfHistory = 5
+[2026.10.14-17.24.07:359][ 82]LogDLSS5OneMinusOffline: Verbose: NR completed PT sample=256/256 frame=15 delay=2 reset=0.
+[2026.10.14-17.24.29:556][ 83]LogNFORDenoise: Frame 4098: Denoised NumOfHistory = 5
+[2026.10.14-17.24.29:556][ 83]LogDLSS5OneMinusOffline: Verbose: NR completed PT sample=256/256 frame=16 delay=2 reset=0.
+[2026.10.14-17.24.33:517][108]LogPython: NFOR_AB_FINISHED success=True

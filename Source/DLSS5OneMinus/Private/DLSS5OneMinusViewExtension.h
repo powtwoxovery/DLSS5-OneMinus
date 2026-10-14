@@ -1,6 +1,8 @@
 #pragma once
 
 #include "SceneViewExtension.h"
+#include "DLSS5OneMinusOfflineHistory.h"
+#include "RenderTargetPool.h"
 
 class FDLSS5OneMinusViewExtension final : public FSceneViewExtensionBase
 {
@@ -24,6 +26,23 @@ public:
         bool bIsPassEnabled) override;
 
 private:
+    struct FOfflineFrame
+    {
+        FViewMatrices Matrices;
+        TRefCountPtr<IPooledRenderTarget> Velocity;
+    };
+
+    struct FOfflineViewHistory
+    {
+        DLSS5OneMinus::FOfflineSampleHistory Samples;
+        FOfflineFrame Frames[DLSS5OneMinus::FOfflineSampleHistory::Capacity];
+        uint64 LastSeen = 0;
+    };
+
+    // Stable allocations: RDG texture extraction writes into a frame slot.
+    TMap<uint32, TUniquePtr<FOfflineViewHistory>> OfflineHistories;
+    uint64 OfflineHistoryClock = 0;
+
     FScreenPassTexture PostDLAA_RenderThread(
         FRDGBuilder& GraphBuilder,
         const FSceneView& View,
