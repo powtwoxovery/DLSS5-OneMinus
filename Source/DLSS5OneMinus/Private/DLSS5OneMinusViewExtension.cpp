@@ -10,10 +10,14 @@
 #include "PostProcess/PostProcessMaterialInputs.h"
 #include "RenderGraphBlackboard.h"
 #include "RenderGraphBuilder.h"
+#include "RenderGraphUtils.h"
+#include "Math/TranslationMatrix.h"
 #include "SceneView.h"
 #include "ScenePrivate.h"
 #include "TemporalUpscaler.h"
 #include "UnrealClient.h"
+
+DEFINE_LOG_CATEGORY_STATIC(LogDLSS5OneMinusOffline, Log, All);
 
 struct FDLSS5OneMinusFrameGuides
 {
@@ -48,6 +52,12 @@ RDG_REGISTER_BLACKBOARD_STRUCT(FDLSS5OneMinusFrameGuides);
 
 namespace
 {
+    TAutoConsoleVariable<int32> CVarOfflineTemporalFix(
+        TEXT("r.NGX.DLSSNR.OfflineTemporalFix"), 2,
+        TEXT("Offline Path Tracer: 0 legacy NR on every sample; 1 completed samples only; "
+             "2 completed samples and NFOR-aligned motion guides (default). NR stays enabled."),
+        ECVF_RenderThreadSafe);
+
     int32 ReadInt(const TCHAR* Name, int32 DefaultValue)
     {
         const IConsoleVariable* Variable = IConsoleManager::Get().FindConsoleVariable(Name);
@@ -58,6 +68,42 @@ namespace
     {
         const IConsoleVariable* Variable = IConsoleManager::Get().FindConsoleVariable(Name);
         return Variable != nullptr ? Variable->GetFloat() : DefaultValue;
+    }
+
+    int32 GetNFORGuideDelay(const FSceneView& View)
+    {
+        // Both legacy MRQ and MRG set OverrideOutputFrameIndexValue. That
+        // field does not identify the age of NFOR's delivered color/depth:
+        // NFOR selects an older image from its own completed-image history.
+        if (ReadInt(TEXT("r.PathTracing.SpatialDenoiser.Type"), 0) != 1)
+        {
+            return 0;
+        }
+        const int32 Denoiser = ReadInt(TEXT("r.PathTracing.Denoiser"), -1);
+        if (Denoiser == 0 || (Denoiser < 0 && !View.FinalPostProcessSettings.PathTracingEnableDenoiser))
+        {
+            return 0;
+        }
+        const IConsoleVariable* Name = IConsoleManager::Get().FindConsoleVariable(TEXT("r.PathTracing.TemporalDenoiser.Name"));
+        if (Name == nullptr || !Name->GetString().Equals(TEXT("NFOR"), ESearchCase::IgnoreCase))
+        {
+            return 0;
+        }
+        const int32 HalfWindow = FMath::Clamp(ReadInt(TEXT("r.NFOR.FrameCount"), 2), 0, 3);
+        const int32 Index = ReadInt(TEXT("r.NFOR.DenoisingFrameIndex"), -1);
+        return Index < 0 ? HalfWindow : FMath::Clamp(Index, 0, HalfWindow * 2);
+    }
+
+    FMatrix44f MakeClipToPrevious(const FViewMatrices& Current, const FViewMatrices& Previous)
+    {
+        // Match SceneView.cpp's jitter-free, large-world-safe reprojection,
+        // using the cameras of the delivered images, not the newest PT sample.
+        const FVector Delta = Previous.GetPreViewTranslation() - Current.GetPreViewTranslation();
+        const FMatrix InvViewProj = Current.ComputeInvProjectionNoAAMatrix()
+            * Current.GetTranslatedViewMatrix().GetTransposed();
+        const FMatrix PrevViewProj = FTranslationMatrix(Delta)
+            * Previous.GetTranslatedViewMatrix() * Previous.ComputeProjectionNoAAMatrix();
+        return FMatrix44f(InvViewProj * PrevViewProj);
     }
 
     int32 ReadEditorScreenPercentage()
@@ -152,6 +198,15 @@ void FDLSS5OneMinusViewExtension::PrePostProcessPass_RenderThread(
     const int32 Path = Settings.Route;
     const uint64 ViewId = reinterpret_cast<uint64>(InView.State);
     const uint64 TargetViewId = DLSS5OneMinus::GetTargetViewId();
+    ++OfflineHistoryClock;
+    // Release finished jobs' retained guides during subsequent viewport work.
+    for (auto It = OfflineHistories.CreateIterator(); It; ++It)
+    {
+        if (OfflineHistoryClock - It.Value()->LastSeen > 4096)
+        {
+            It.RemoveCurrent();
+        }
+    }
     if (!Settings.bEnabled
         || Path < 0
         || Path > 2
@@ -184,14 +239,84 @@ void FDLSS5OneMinusViewExtension::PrePostProcessPass_RenderThread(
         return;
     }
 
+    bool bReset = InView.bCameraCut;
+    FMatrix44f ClipToPrevious;
+    const FMatrix44f* ClipToPreviousOverride = nullptr;
+#if RHI_RAYTRACING
+    const int32 OfflineFix = CVarOfflineTemporalFix.GetValueOnRenderThread();
+    if (OfflineFix > 0 && InView.bIsOfflineRender && InView.Family
+        && InView.Family->EngineShowFlags.PathTracing)
+    {
+        const uint32 Key = InView.State->GetViewKey();
+        TUniquePtr<FOfflineViewHistory>& Entry = OfflineHistories.FindOrAdd(Key);
+        if (!Entry)
+        {
+            Entry = MakeUnique<FOfflineViewHistory>();
+        }
+        FOfflineViewHistory& History = *Entry;
+        History.LastSeen = OfflineHistoryClock;
+        const int32 Delay = OfflineFix >= 2 ? GetNFORGuideDelay(InView) : 0;
+        const uint32 SampleIndex = InView.State->GetPathTracingSampleIndex();
+        const uint32 SampleCount = InView.State->GetPathTracingSampleCount();
+        if (!History.Samples.Advance(SampleIndex, SampleCount, InView.bCameraCut, ViewRect, Delay))
+        {
+            // MRQ discards this partial image. Evaluating NR here would pollute
+            // its temporal history with up to hundreds of unconverged images.
+            return;
+        }
+
+        FOfflineFrame& Current = History.Frames[History.Samples.WriteSlot];
+        Current.Matrices = InView.ViewMatrices;
+        if (Delay > 0)
+        {
+            // Retain the *matching frame's* object velocities too. Reusing the
+            // current raster buffer with NFOR's older color/depth is incorrect.
+            FRDGTextureRef SavedVelocity = GraphBuilder.CreateTexture(Velocity->Desc,
+                TEXT("DLSS5OneMinus.OfflineVelocity"));
+            AddCopyTexturePass(GraphBuilder, Velocity, SavedVelocity);
+            GraphBuilder.QueueTextureExtraction(SavedVelocity, &Current.Velocity);
+        }
+        else
+        {
+            Current.Velocity.SafeRelease();
+        }
+
+        const FOfflineFrame& Delivered = History.Frames[History.Samples.ReadSlot];
+        bReset = History.Samples.bReset;
+        if (History.Samples.ReadSlot != History.Samples.WriteSlot)
+        {
+            if (Delivered.Velocity.IsValid())
+            {
+                Velocity = GraphBuilder.RegisterExternalTexture(Delivered.Velocity);
+            }
+            else
+            {
+                bReset = true;
+            }
+        }
+        ClipToPrevious = MakeClipToPrevious(Delivered.Matrices,
+            History.Frames[History.Samples.PreviousSlot].Matrices);
+        ClipToPreviousOverride = &ClipToPrevious;
+        if (History.Samples.Completed == 1)
+        {
+            UE_LOG(LogDLSS5OneMinusOffline, Display,
+                TEXT("NR offline history: final samples only, samples=%u, NFOR guide delay=%d, view=%u, film grain=%.3f."),
+                SampleCount, Delay, Key, InView.FinalPostProcessSettings.FilmGrainIntensity);
+        }
+        UE_LOG(LogDLSS5OneMinusOffline, Verbose,
+            TEXT("NR completed PT sample=%u/%u frame=%lld delay=%d reset=%d."),
+            SampleIndex, SampleCount, History.Samples.Completed, Delay, bReset);
+    }
+#endif
+
     FRDGTextureRef Motion = DLSS5OneMinus::AddMotionGuidePass(
-        GraphBuilder, InView, Depth, Velocity, ViewRect);
+        GraphBuilder, InView, Depth, Velocity, ViewRect, ClipToPreviousOverride, bReset);
     GraphBuilder.Blackboard.Create<FDLSS5OneMinusFrameGuides>(
         &InView,
         Depth,
         Motion,
         ViewRect,
-        InView.bCameraCut,
+        bReset,
         ViewId,
         Settings);
 
@@ -246,7 +371,7 @@ void FDLSS5OneMinusViewExtension::PrePostProcessPass_RenderThread(
     ModelInputs.ColorRect = FIntRect(FIntPoint::ZeroValue, ViewRect.Size());
     ModelInputs.DepthRect = ViewRect;
     ModelInputs.MotionVectorRect = FIntRect(FIntPoint::ZeroValue, ViewRect.Size());
-    ModelInputs.bReset = InView.bCameraCut;
+    ModelInputs.bReset = bReset;
     ModelInputs.ViewId = ViewId;
     ModelInputs.Route = Path;
     ModelInputs.Settings = Settings;

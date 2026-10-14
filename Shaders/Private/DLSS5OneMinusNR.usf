@@ -14,6 +14,8 @@ Texture2D SceneDepth;
 Texture2D SceneVelocity;
 RWTexture2D<float2> OutputMotion;
 uint VelocityIsValid;
+float4x4 MotionClipToPrevClip;
+uint UseMotionClipOverride;
 
 Texture2D<float4> OriginalColor;
 SamplerState OriginalSampler;
@@ -148,7 +150,8 @@ void MotionGuideMain(uint3 DispatchThreadId : SV_DispatchThreadID)
         CurrentClip.xy = SvPositionToScreenPosition(float4(SourcePixel + 0.5, 0.0, 1.0)).xy;
         CurrentClip.z = Depth;
         CurrentClip.w = 1.0;
-        float4 PreviousClip = mul(CurrentClip, View.ClipToPrevClip);
+        float4 PreviousClip = UseMotionClipOverride != 0
+            ? mul(CurrentClip, MotionClipToPrevClip) : mul(CurrentClip, View.ClipToPrevClip);
         if (PreviousClip.w > 0.0)
         {
             ScreenMotion = CurrentClip.xy - PreviousClip.xy / PreviousClip.w;

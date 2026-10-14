@@ -74,6 +74,40 @@ Your requested screen percentage is kept. Routes only constrain what's rendered 
 
 ## Console
 
+### Offline Path Tracer temporal history (UE 5.8)
+
+MRQ renders intermediate Path Tracer samples that it discards. NR must not
+consume these as animation frames: its history would be updated with partially
+converged images before every output frame. The offline path now evaluates NR
+only when Path Tracer accumulation is complete, retaining camera cuts seen on
+earlier samples.
+
+NFOR also delivers an older image (two frames with
+`r.NFOR.FrameCount=2`). The plugin retains camera transforms and object velocity
+buffers from completed images so NR receives guides for that older image. It
+resets NR at the transition from initial undenoised frames to delayed NFOR output,
+and when the sample count, view rectangle, camera cut, or denoiser delay changes.
+Both legacy MRQ and MRG set the view's output-frame override; it does not
+disable NFOR guide compensation. The render validation uses legacy MRQ.
+Real-time rendering retains its existing evaluation cadence.
+
+`r.NGX.DLSSNR.OfflineTemporalFix` provides reproducible A/B diagnostics:
+
+- `0`: original evaluation on every Path Tracer sample.
+- `1`: completed samples only, without NFOR guide delay compensation.
+- `2`: completed samples and matching NFOR guides (default).
+
+All modes retain the profile's NR strength and style. Run each comparison as a
+separate render of the same shot, with identical sampling and lighting; allow
+NFOR history to fill before assessing flicker. Enable
+`Log LogDLSS5OneMinusOffline Verbose` to audit completed samples and resets.
+This corrects the history inputs; it does not guarantee removal of all residual
+Path Tracer noise or model-generated temporal variation. NFOR's legacy MRQ
+start/end-of-shot limitations remain.
+
+Regression test: `Automation RunTests DLSS5OneMinus.OfflineHistory`.
+
+
 `r.NGX.DLSSNR.Enable`, `.Path`, `.Strength` (0–2), `.HDRComposition`, `.WhitePoint`, `.Style`, `.Intensity`, `.LocalToneStrength`, `.LocalStructureStrength`, `.SkinStructureStrength` (-1 = auto), `.AutoMask`, `.DebugView`, `.SliceOffsetPercent`, `.AllowSceneCaptures`
 
 Commands: `DLSSNR.Controls`, `DLSSNR.DebugDifference`, `DLSSNR.DebugSlice`, `DLSSNR.Validate*`
