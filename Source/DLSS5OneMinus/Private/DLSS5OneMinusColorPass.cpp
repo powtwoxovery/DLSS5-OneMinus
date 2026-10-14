@@ -114,6 +114,8 @@ namespace
             SHADER_PARAMETER(FIntPoint, InputOffset)
             SHADER_PARAMETER(FIntPoint, OutputSize)
             SHADER_PARAMETER(uint32, VelocityIsValid)
+            SHADER_PARAMETER(FMatrix44f, MotionClipToPrevClip)
+            SHADER_PARAMETER(uint32, UseMotionClipOverride)
         END_SHADER_PARAMETER_STRUCT()
     };
 
@@ -394,7 +396,9 @@ FRDGTextureRef DLSS5OneMinus::AddMotionGuidePass(
     const FSceneView& View,
     FRDGTextureRef SceneDepth,
     FRDGTextureRef SceneVelocity,
-    const FIntRect& InputRect)
+    const FIntRect& InputRect,
+    const FMatrix44f* ClipToPreviousOverride,
+    bool bResetMotion)
 {
     const FIntPoint OutputSize = InputRect.Size();
     const FRDGTextureDesc Desc = FRDGTextureDesc::Create2D(
@@ -411,7 +415,10 @@ FRDGTextureRef DLSS5OneMinus::AddMotionGuidePass(
     Parameters->View = View.ViewUniformBuffer;
     Parameters->InputOffset = InputRect.Min;
     Parameters->OutputSize = OutputSize;
-    Parameters->VelocityIsValid = SceneVelocity->Desc.Extent == SceneDepth->Desc.Extent ? 1u : 0u;
+    Parameters->VelocityIsValid = !bResetMotion && SceneVelocity->Desc.Extent == SceneDepth->Desc.Extent ? 1u : 0u;
+    Parameters->MotionClipToPrevClip = !bResetMotion && ClipToPreviousOverride
+        ? *ClipToPreviousOverride : FMatrix44f::Identity;
+    Parameters->UseMotionClipOverride = bResetMotion || ClipToPreviousOverride ? 1u : 0u;
 
     TShaderMapRef<FMotionGuideCS> Shader(GetGlobalShaderMap(View.GetFeatureLevel()));
     FComputeShaderUtils::AddPass(
